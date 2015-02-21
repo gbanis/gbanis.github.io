@@ -1,0 +1,31 @@
+# Site settings
+title: George Banis
+email: gbanis@gmail.com
+description:  George Banis is a full-stack developer, currently coding in Ruby and JavaScript. In this blog he talks about web development, architecture, efficiency, and innovation.
+baseurl: "" # the subpath of your site, e.g. /blog/
+keywords: web developer, software engineer, coding, ruby, ruby on rails, javascript, angular
+url: "http://gbanis.com" # the base hostname & protocol for your site
+
+# Social Media Profiles
+twitter_username:   gbanis
+github_username:    gbanis
+linkedin_username:  gbanis
+skype_username:     georgebanis
+
+# Outputting
+permalink: /blog/:title
+
+# Build settings
+# markdown: kramdown
+markdown: redcarpet
+redcarpet:
+    extensions: [with_toc_data]
+highlighter: pygments
+
+
+# Creates a standards compliant sitemap
+gems:
+  - jekyll-sitemap
+
+exclude: [Gemfile, Rakefile, Gemfile.lock, README.md, config.rb]
+

@@ -1,0 +1,454 @@
+/**
+ * Site header
+ */
+.site-header {
+    border-top: 5px solid $grey-color-dark;
+    border-bottom: 1px solid $grey-color-light;
+    min-height: 56px;
+
+    // Positioning context for the mobile navigation icon
+    position: relative;
+}
+
+.site-title {
+    background: url(/assets/logo.svg) no-repeat 0 -10px;
+    padding-left: 65px;
+    background-size: 55px;
+    font-size: 26px;
+    line-height: 56px;
+    letter-spacing: -1px;
+    margin-bottom: 0;
+    float: left;
+
+    &,
+    &:visited {
+        color: $grey-color-dark;
+    }
+}
+
+.site-nav {
+    float: right;
+    line-height: 56px;
+
+    .menu-icon {
+        display: none;
+    }
+
+    .page-link {
+        color: $text-color;
+        line-height: $base-line-height;
+
+        // Gaps between nav items, but not on the first one
+        &:not(:first-child) {
+            margin-left: 20px;
+        }
+    }
+    a:hover {
+        color: $brand-color;
+    }
+
+
+    @include media-query($on-palm) {
+        position: absolute;
+        top: 9px;
+        right: 30px;
+        background-color: $background-color;
+        border: 1px solid $grey-color-light;
+        border-radius: 5px;
+        text-align: right;
+
+        .menu-icon {
+            display: block;
+            float: right;
+            width: 36px;
+            height: 26px;
+            line-height: 0;
+            padding-top: 10px;
+            text-align: center;
+
+            > svg {
+                width: 18px;
+                height: 15px;
+
+                path {
+                    fill: $grey-color-dark;
+                }
+            }
+        }
+
+        .trigger {
+            clear: both;
+            display: none;
+        }
+
+        &:hover .trigger {
+            display: block;
+            padding-bottom: 5px;
+        }
+
+        .page-link {
+            display: block;
+            padding: 5px 10px;
+        }
+    }
+}
+
+/**
+ * Column layouts
+ */
+.row {
+    margin-left: - $spacing-unit;
+    @extend %clearfix;
+}
+.col {
+    float: left;
+    margin-bottom: $spacing-unit / 2;
+    padding-left: $spacing-unit;
+}
+.col-1 {
+    width: -webkit-calc(100% * (1/12) - (#{$spacing-unit} * (1/12)));
+    width:         calc(100% * (1/12) - (#{$spacing-unit} * (1/12)));
+}
+.col-2 {
+    width: -webkit-calc(100% * (2/12) - (#{$spacing-unit} * (2/12)));
+    width:         calc(100% * (2/12) - (#{$spacing-unit} * (2/12)));
+}
+.col-3 {
+    width: -webkit-calc(100% * (3/12) - (#{$spacing-unit} * (3/12)));
+    width:         calc(100% * (3/12) - (#{$spacing-unit} * (3/12)));
+}
+.col-4 {
+    width: -webkit-calc(100% * (4/12) - (#{$spacing-unit} * (4/12)));
+    width:         calc(100% * (4/12) - (#{$spacing-unit} * (4/12)));
+}
+.col-5 {
+    width: -webkit-calc(100% * (5/12) - (#{$spacing-unit} * (5/12)));
+    width:         calc(100% * (5/12) - (#{$spacing-unit} * (5/12)));
+}
+.col-6 {
+    width: -webkit-calc(100% * (6/12) - (#{$spacing-unit} * (6/12)));
+    width:         calc(100% * (6/12) - 2*(#{$spacing-unit} * (6/12)));
+}
+.col-7 {
+    width: -webkit-calc(100% * (7/12) - (#{$spacing-unit} * (7/12)));
+    width:         calc(100% * (7/12) - (#{$spacing-unit} * (7/12)));
+}
+.col-8 {
+    width: -webkit-calc(100% * (8/12) - (#{$spacing-unit} * (8/12)));
+    width:         calc(100% * (8/12) - (#{$spacing-unit} * (8/12)));
+}
+.col-9 {
+    width: -webkit-calc(100% * (9/12) - (#{$spacing-unit} * (9/12)));
+    width:         calc(100% * (9/12) - (#{$spacing-unit} * (9/12)));
+}
+.col-10 {
+    width: -webkit-calc(100% * (10/12) - (#{$spacing-unit} * (10/12)));
+    width:         calc(100% * (10/12) - (#{$spacing-unit} * (10/12)));
+}
+.col-11 {
+    width: -webkit-calc(100% * (11/12) - (#{$spacing-unit} * (11/12)));
+    width:         calc(100% * (11/12) - (#{$spacing-unit} * (11/12)));
+}
+.col-12  {
+    width: -webkit-calc(100% * (12/12) - (#{$spacing-unit} * (12/12)));
+    width:         calc(100% * (12/12) - (#{$spacing-unit} * (12/12)));
+}
+
+.col-push-1 {
+    left: 100% * (1/12)
+}
+.col-push-2 {
+    left: 100% * (2/12)
+}
+.col-push-3 {
+    left: 100% * (3/12)
+}
+.col-push-4 {
+    left: 100% * (4/12)
+}
+.col-push-5 {
+    left: 100% * (5/12)
+}
+.col-push-6 {
+    left: 100% * (6/12)
+}
+.col-push-7 {
+    left: 100% * (7/12)
+}
+.col-push-8 {
+    left: 100% * (8/12)
+}
+.col-push-9 {
+    left: 100% * (9/12)
+}
+.col-push-10 {
+    left: 100% * (10/12)
+}
+.col-push-11 {
+    left: 100% * (11/12)
+}
+.col-push-12 {
+    left: 100% * (12/12)
+}
+
+.col-pull-1 {
+    right: 100% * (1/12)
+}
+.col-pull-2 {
+    right: 100% * (2/12)
+}
+.col-pull-3 {
+    right: 100% * (3/12)
+}
+.col-pull-4 {
+    right: 100% * (4/12)
+}
+.col-pull-5 {
+    right: 100% * (5/12)
+}
+.col-pull-6 {
+    right: 100% * (6/12)
+}
+.col-pull-7 {
+    right: 100% * (7/12)
+}
+.col-pull-8 {
+    right: 100% * (8/12)
+}
+.col-pull-9 {
+    right: 100% * (9/12)
+}
+.col-pull-10 {
+    right: 100% * (10/12)
+}
+.col-pull-11 {
+    right: 100% * (11/12)
+}
+.col-pull-12 {
+    right: 100% * (12/12)
+}
+
+
+
+/**
+ * Site footer
+ */
+.site-footer {
+    border-top: 1px solid $grey-color-light;
+    padding: $spacing-unit 0;
+}
+
+.footer-heading {
+    font-size: 18px;
+    margin-bottom: $spacing-unit / 2;
+}
+
+.contact-list,
+.social-media-list {
+    list-style: none;
+    margin-left: 0;
+}
+
+.footer-col-wrapper {
+    font-size: 15px;
+    color: $grey-color;
+    margin-left: -$spacing-unit / 2;
+    @extend %clearfix;
+}
+
+.footer-col {
+    float: left;
+    margin-bottom: $spacing-unit / 2;
+    padding-left: $spacing-unit / 2;
+}
+
+.footer-col-1 {
+    width: -webkit-calc(35% - (#{$spacing-unit} / 2));
+    width:         calc(35% - (#{$spacing-unit} / 2));
+}
+
+.footer-col-2 {
+    width: -webkit-calc(20% - (#{$spacing-unit} / 2));
+    width:         calc(20% - (#{$spacing-unit} / 2));
+}
+
+.footer-col-3 {
+    width: -webkit-calc(45% - (#{$spacing-unit} / 2));
+    width:         calc(45% - (#{$spacing-unit} / 2));
+}
+
+.site-description {
+    font-size: $small-font-size;
+    line-height: 1.5;
+    background: url("/assets/george-banis-65x65.jpg") no-repeat;
+    background-position: 0 3px ;
+    padding-left: 73px;
+}
+
+.credits{
+    border-top: 1px solid $grey-color-light;
+    padding: $spacing-unit 0;
+    font-size: $small-font-size;
+    color: lighten($text-color, 50%);
+}
+
+.credits a{
+    color: lighten($text-color, 35%);
+}
+
+.credits a:hover{
+    color: $brand-color;
+}
+
+.credits p{
+    margin-bottom: 0;
+}
+
+@include media-query($on-laptop) {
+    .col-1, .col-2, .col3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12{
+        width: -webkit-calc(100% - (#{$spacing-unit}));
+        width:         calc(100% - (#{$spacing-unit}));
+    }
+
+    .footer-col-1,
+    .footer-col-2 {
+        width: -webkit-calc(50% - (#{$spacing-unit} / 2));
+        width:         calc(50% - (#{$spacing-unit} / 2));
+    }
+
+    .footer-col-3 {
+        width: -webkit-calc(100% - (#{$spacing-unit} / 2));
+        width:         calc(100% - (#{$spacing-unit} / 2));
+    }
+}
+
+@include media-query($on-palm) {
+    .col-1, .col-2, .col3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12{
+        width: -webkit-calc(100% - (#{$spacing-unit}));
+        width:         calc(100% - (#{$spacing-unit}));
+    }
+    .footer-col {
+        float: none;
+        width: -webkit-calc(100% - (#{$spacing-unit} / 2));
+        width:         calc(100% - (#{$spacing-unit} / 2));
+    }
+}
+
+
+
+/**
+ * Page content
+ */
+.page-content {
+    padding: $spacing-unit 0;
+}
+
+.page-heading {
+    // font-size: 20px;
+}
+
+.post-list {
+    margin-left: 0;
+    list-style: none;
+
+    > li {
+        margin-bottom: $spacing-unit;
+        padding-bottom: $spacing-unit;
+        border-bottom: 1px dashed $grey-color-light;
+    }
+}
+.post-list li:last-child{
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.post-meta,
+.post-date,
+.post-tags {
+    font-size: $small-font-size;
+    color: $grey-color;
+}
+.post-date,
+.post-tags {
+    margin: 0;
+}
+
+
+.post-link {
+    display: block;
+}
+
+
+/**
+ * Posts
+ */
+.post-header {
+    margin-bottom: $spacing-unit;
+}
+
+.post-title {
+    // font-size: 42px;
+    letter-spacing: -1px;
+    line-height: 1;
+}
+
+.post-content {
+    margin-bottom: $spacing-unit;
+
+    h2 {
+        font-size: $h2-font-size;
+
+        @include media-query($on-laptop) {
+            font-size: $h2-font-size *0.95;
+        }
+    }
+
+    h3 {
+        font-size: $h3-font-size;
+
+        @include media-query($on-laptop) {
+            font-size: $h3-font-size *0.95;
+        }
+    }
+
+    h4 {
+        font-size: $h4-font-size;
+
+        @include media-query($on-laptop) {
+            font-size: $h4-font-size *0.95;
+        }
+    }
+}
+
+/**
+ * Disqus Comments
+ */
+.dsq-brlink{
+    font-size: $small-font-size;
+}
+
+/**
+ * Header Hover
+ */
+/*
+ * This code is courtesy Ben Balter, modified by Parker Moore for jekyllrb.com
+ * http://ben.balter.com/2014/03/13/pages-anchor-links/
+ */
+.header-link {
+  position: relative;
+  left: 0.5em;
+  opacity: 0;
+  font-size: 0.8em;
+
+  -webkit-transition: opacity 0.2s ease-in-out 0.1s;
+  -moz-transition: opacity 0.2s ease-in-out 0.1s;
+  -ms-transition: opacity 0.2s ease-in-out 0.1s;
+}
+h2:hover .header-link,
+h3:hover .header-link,
+h4:hover .header-link,
+h5:hover .header-link,
+h6:hover .header-link {
+  opacity: 1;
+}
