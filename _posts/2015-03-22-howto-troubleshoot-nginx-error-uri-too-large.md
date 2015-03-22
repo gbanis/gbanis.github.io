@@ -15,11 +15,11 @@ While large AJAX requests could be considered a smell, sometimes it might be eas
 
 As I was developing on my local dev environment, everything seemed to work fine. But then when I deployed my code on an Amazon EC2 instance, Nginx started complaining sending 414 "URI Too Large" errors.
 
-The most probable explanation is that the local web server that I was using (Thin/Webrick/Unicorn) which by default accepts larger AJAX requests. However, Nginx usually defaults to 4kb or 8kb requests.
+The most probable explanation is that the local web server that I was using (Thin/Webrick/Unicorn) by default accepts larger AJAX requests. On the other hand, Nginx usually defaults to 4kb or 8kb max.
 
 ## Should I Change Nginx's Configuration?
 
-Ideally, you would want to trim your requests. Or split them into a batch and send them via AJAX concurrently, rather than sending one giant request.
+Ideally, you would want to trim your requests, or split them into a batch and send them via AJAX concurrently, rather than sending one giant request.
 
 However, this might not be feasible sometimes. Maybe a 3rd party JavaScript library sends the request. Or the request looses context if it gets split.
 
@@ -27,9 +27,9 @@ For those occasions, bumping up the request cap might be the only option.
 
 ## How to Increase Nginx's Cap for Header Size?
 
-First, you'll want to locate `nginx.conf`. It's usually found at `/etc/nginx/nginx.conf`.
+First, locate `nginx.conf`. It's usually found at `/etc/nginx/nginx.conf`.
 
-Then, you'll want to add the following:
+Then, add the following header in the `server` or `http` and `https` part of the file:
 
 ```
 large_client_header_buffers 4 16k
