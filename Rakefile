@@ -1,9 +1,14 @@
+#################
 # To publish:
-
 # $ jkb # => build the website
 # $ gaa
 # $ gcm "Message"
 # $ rake
+#################
+# New post:
+# $ rake post:new
+# (you will be prompted to enter post name)
+#################
 
 require "rubygems"
 require "tmpdir"
