@@ -68,17 +68,51 @@ In this example I've created a simple application allows us to create and list `
 
 In this example:
 
-- Clicking the Submit button in `NewComment` dispatches a `"SUBMIT_NEW_COMMENT"` `action`
-- `onAction` grabs the `action` and calls `_onSubmitNewComment`
-- `_onSubmitNewComment` updates the state of the parent component `CommentApp`
-- `CommentApp` passes the new `comments` from it's `state` down to `CommentList` via `props`
+- Clicking the `submit` button in `NewComment` uses `this.props.onAction` to dispatch an action with `payload`:
+
+  ```
+  payload = {
+    action: "SUBMIT_NEW_COMMENT"
+    comment: {
+      comment: this.state.comment,
+      author: this.state.author
+    }
+  }
+  ```
+
+- `onAction` grabs the `payload`, runs it through the `switch` and calls `_onSubmitNewComment`
+- `_onSubmitNewComment` updates the state of the parent component, `CommentApp`
+- `CommentApp` passes the new `comments` from its `state` down to `CommentList` via `props`
 - `CommentList` updates, rendering the new list of `comments`
 
 Now that we have this basic structure in place, it is very easy to add new functionality.
 
-So how about we add an `X` that will remove a comment from the list?
+So how about we add an `X` link that will remove a comment from the list?
 
->>>>>>>>>>>>>> Continue here
+### Adding a "Delete Comment" Link
+
+First, lets create a new component for the individual `Comment` and refactor `CommentList`.
+
+https://jsfiddle.net/gbanis/o7xvdwr8/2/
+
+Now, let's add an `X` link. Initially it won't do anything other than serve as a placeholder.
+
+(Don't worry about styling, we just care about functionality for now.)
+
+https://jsfiddle.net/gbanis/o7xvdwr8/4/
+
+Next, when we click on the `X` we want to dispatch a `"DELECE_COMMENT"` action.
+
+- We'll add an `onClick` event listener to the `X` link that will call the `Comment`'s `this._onClick`
+- Then pass the `CommentApp`'s `onAction` to `Comment`
+- Create a `payload` in the `_onClick`
+- And finally call `onAction` with this `payload`
+
+https://jsfiddle.net/gbanis/o7xvdwr8/5/
+
+>>>>>>>>> Add more
+
+
 
 ## Final Thoughts
 
