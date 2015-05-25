@@ -60,7 +60,29 @@ Yup, you guessed right. The "Flux without Flux" pattern uses the same chart for 
 
 ## A "Flux without Flux" Example
 
+Here's a basic example of the "Flux without Flux" pattern:
+
+<iframe width="100%" height="400" src="//jsfiddle.net/gbanis/zve3xngL/3/embedded/js,html,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+In this example I've created a simple application allows us to create and list `comments`.
+
+In this example:
+
+- Clicking the Submit button in `NewComment` dispatches a `"SUBMIT_NEW_COMMENT"` `action`
+- `onAction` grabs the `action` and calls `_onSubmitNewComment`
+- `_onSubmitNewComment` updates the state of the parent component `CommentApp`
+- `CommentApp` passes the new `comments` from it's `state` down to `CommentList` via `props`
+- `CommentList` updates, rendering the new list of `comments`
+
+Now that we have this basic structure in place, it is very easy to add new functionality.
+
+So how about we add an `X` that will remove a comment from the list?
+
+>>>>>>>>>>>>>> Continue here
+
 ## Final Thoughts
+
+In this example, I put together the most basic example for using this "Flux without Flux" pattern.
 
 I've started using the "Flux without Flux" pattern recently and so far it feels very nice and effortless. Things are where my team and I expect them to be and it's quite easy to navigate around my codebase.
 
