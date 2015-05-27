@@ -11,11 +11,22 @@ author:       George Banis
 
 ## TL;DR
 
+You can replicate the Flux architecture using plain React, building applications and reusable components that are easy to reason about, maintain, and extend.
+
+Just get [Flux's architecture chart](https://facebook.github.io/flux/img/flux-simple-f8-diagram-with-client-action-1300w.png) and replace:
+
+- `action` with `event`
+- `dispatcher` with a `callback` in your parent (controller) component that you pass down to every child component
+- `stores` with `state`
+- `views` are the same old React `views`
+
+## Intro
+
 If you are into ReactJS you probably wondered whether or not you should use Flux.
 
 In this post I'll share with you a design pattern that implements a very similar Flux architecture, but using just plain React.
 
-I tested this "Flux without Flux" pattern building *large front-end applications* as well as *reusable components* with great success and thought I'd share it with you.
+I have tested this "Flux without Flux" pattern building *large front-end applications* as well as *reusable components* with great success and I'd love it if you gave it a try and let me know what you think.
 
 ## To Flux or not to Flux?
 
@@ -56,7 +67,7 @@ In the FWF pattern, the Flux architecture is adapted to use React elements:
 
 `Event => onAction => State => View`
 
-- A user interacts with your application and generates an `event`
+- A user interacts with your application and triggers an `event`
 - The event handler creates a `payload` and hands it to the parent component's `onAction`
 - The `onAction` calls the appropriate method that updates the `state`
 - React automatically updates all components passing new `props` to them
