@@ -26,7 +26,7 @@ If you are into ReactJS you probably wondered whether or not you should use Flux
 
 In this post I'll share with you a design pattern that implements a very similar Flux architecture, but using just plain React.
 
-I have tested this "Flux without Flux" pattern building *large front-end applications* as well as *reusable components* with great success and I'd love it if you gave it a try and let me know what you think.
+I have tested this "Flux without Flux" in many different settings, including reusable components, with great success and I'd love it if you gave it a try and let me know what you think.
 
 ## To Flux or not to Flux?
 
