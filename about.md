@@ -4,52 +4,44 @@ title: About
 permalink: /about/
 ---
 
-<img style="float:right" src="/assets/george-banis.jpg" height="180"> Hey there, my name is George Banis and I am a full-stack developer with a multimedia and marketing background.
+<img style="float:right" src="/assets/george-banis.jpg" height="180"> Hi! I'm George and I am a full-stack engineer with a passion for building performant and scalable applications that are beautiful and easy to use.
 
-Lately, I've been coding mostly in Ruby and JavaScript, which I thoroughly enjoy.
+Lately, I've been mostly programming front-end applications on JavaScript/React and less frequently APIs on Rails.
 
-I usually work on building:
+My new found love for React has allowed me to spend more time getting intimate with the "framework" and using it to build extremely fast and performant applications that seem almost too good to be true. (I shouldn't really take any credit, React is just amazing.)
 
-- RESTful API servers using Ruby on Rails and
-- Front-end SPAs (single page applications) using AngularJS
-
-I really enjoy test-driven development and continuous integration. I also love using Git to document my progress and work with teams.
+I get excited working on new things and I always look for opportunities to work on reusable components and open-source projects.
 
 ## Skills
 <div class="row">
   <div class="col col-6">
+    Front-end:
+    <div class="progress-bar" style="width:90%">JavaScript</div>
+    <div class="progress-bar" style="width:100%">ReactJS</div>
+    <div class="progress-bar" style="width:70%">jQeury</div>
+
     Back-end:
-    <div class="progress-bar" style="width:90%">Ruby</div>
+    <div class="progress-bar" style="width:80%">Ruby</div>
     <div class="progress-bar" style="width:90%">Ruby on Rails</div>
     <div class="progress-bar" style="width:50%">SQL</div>
 
-    <br>
-    Front-end:
-    <div class="progress-bar" style="width:90%">JavaScript</div>
-    <div class="progress-bar" style="width:70%">Angular</div>
-    <div class="progress-bar" style="width:80%">jQeury</div>
   </div>
   <div class="col col-6">
     Development:
-    <div class="progress-bar" style="width:70%">Test-Driven Development</div>
-    <div class="progress-bar" style="width:60%">Continuous Integration</div>
-    <div class="progress-bar" style="width:90%">Git / Version Control</div>
+    <div class="progress-bar" style="width:90%">Architecture / Best Practices</div>
+    <div class="progress-bar" style="width:80%">Performance / Scaling</div>
+    <div class="progress-bar" style="width:70%">TDD / Continuous Integration</div>
 
-    <br>
-    Multimedia:
-    <div class="progress-bar" style="width:90%">Photoshop</div>
-    <div class="progress-bar" style="width:70%">Final Cut</div>
-    <div class="progress-bar" style="width:40%">After Effects</div>
+
+
+    Other Skills:
+    <div class="progress-bar" style="width:80%">UX / UI</div>
+    <div class="progress-bar" style="width:90%">Agile Workflow</div>
+    <div class="progress-bar" style="width:70%">Tech Speccing</div>
+
   </div>
 
 </div>
-<em>*The charts are an approximation. Please take them with a grain of salt.</em>
-
-## Volunteering
-
-I currently serve as a **board member** at [NewTV](http://newtv.org), Newton's award-winning community media center. During my time here, we were recognized as the best community media center in the country. In addition, one of our shows, "[The Folklorist](http://folklorist.newtv.org/)", has received multiple Emmy awards.
-
-I am also a **founding member** of the [N-squared Corridor](http://n2corridor.com), an initiative that promotes the Newton-Needham corridor as an entrepreneurial and technological hub.
 
 ## Fun
 
@@ -59,6 +51,6 @@ I am also a **founding member** of the [N-squared Corridor](http://n2corridor.co
   </div>
   <div class="col col-6">
     <p>In my free time I love traveling with my beautiful wife, spending time with my border collie, golfing, playing ping-pong, and watching football.</p>
-    <p>I also enjoy building small useful apps and contributing to open-source projects.</p>
+    <p>I also try to make time to build app prototypes and contributing to open-source projects.</p>
   </div>
 </div>

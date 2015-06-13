@@ -1,16 +1,17 @@
 # Site settings
 title: George Banis
 email: gbanis@gmail.com
-description:  George Banis is a full-stack developer, currently coding in Ruby and JavaScript. In this blog he talks about web development, architecture, efficiency, and innovation.
+description:  George Banis is a full-stack engineer, currently progamming in Javascript and Ruby. In this blog he talks about software engineering, architecture, and performance.
 baseurl: "" # the subpath of your site, e.g. /blog/
-keywords: web developer, software engineer, coding, ruby, ruby on rails, javascript, angular
+keywords: web developer, software engineer, programming, javascript, reactjs, ruby, ruby on rails
 url: "http://gbanis.com" # the base hostname & protocol for your site
+location: Boston, MA
 
 # Social Media Profiles
 twitter_username:   gbanis
 github_username:    gbanis
 linkedin_username:  gbanis
-skype_username:     georgebanis
+# skype_username:     georgebanis
 
 # Outputting
 permalink: /blog/:title

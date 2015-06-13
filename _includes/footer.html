@@ -8,7 +8,10 @@
       <div class="footer-col  footer-col-1">
         <ul class="contact-list">
           <li>{{ site.title }}</li>
-          <li><i class="fa fa-envelope-square"></i>
+          {% if site.location %}
+          <li>{{ site.location }}</li>
+          {% endif %}
+          <li>
           <a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
           {% if site.skype_username %}
           <li>

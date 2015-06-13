@@ -1,7 +1,6 @@
 <div class="credits">
-  <p>2014 &copy; <a href="http://gbanis.com" title="George Banis, full stack web developer">George Banis</a> - All contents are <a href="http://creativecommons.org/licenses/by-nc/3.0/us/" target="_blank">Creative Commons</a> licensed.</p>
-  <p>This website was built in Boston with <i class="fa fa-heart"></i> using <a href="http://jekyllrb.com" target="_blank">Jekyll</a> and <a href="https://www.ruby-lang.org/en/" target="_blank">Ruby</a>.
-  </p>
+  <p>2015 &copy; <a href="http://gbanis.com" title="George Banis, full stack web developer">George Banis</a> - All contents are <a href="http://creativecommons.org/licenses/by-nc/3.0/us/" target="_blank">Creative Commons</a> licensed.</p>
+  <p>This website was built with <i class="fa fa-heart"></i> in Boston.</p>
   <p>
   <!-- If a page has "menu: footer" it will displayed here, in the footer menu. -->
     {% for page in site.pages %}{% if page.menu == 'footer' %}<a class="footer-menu" href="{{ page.url | prepend: site.baseurl }}" title="{{ page.title }}">{{ page.title }}</a> | {% endif %}{% endfor %}<a class="footer-menu rss-subscribe" href="{{ "/feed.xml" | prepend: site.baseurl }}">RSS Feed</a>
