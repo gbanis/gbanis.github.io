@@ -37,7 +37,7 @@ namespace :post do
       .keep_if { |word| !STOPWORDS.index(word) }
       .join("-")
     current_date = Time.now.getutc.strftime("%Y-%m-%d")
-    file_path = "_drafts/#{current_date}-#{post_slug}.md"
+    file_path = "_posts/#{current_date}-#{post_slug}.md"
   `echo '---
 layout:       post
 title:        "#{post_name}"
