@@ -1,6 +1,6 @@
 ---
 layout:       post
-title:        "Software Development Workflow with Git and Trello"
+title:        "Software Engineering Workflow with Git and Trello"
 description:  "A workflow using Git and Trello to help you build awesome applications without worrying about project management."
 date:         2015-06-13 12:00:00
 tags:
@@ -18,6 +18,15 @@ So, I decided to share the workflow that I use for my side-projects and for this
 It is a variation of the popular [Kanban workflow](https://en.wikipedia.org/wiki/Kanban_(development)#Kanban_board_example), an Agile and Lean workflow which many teams and individuals use successfully.
 
 *If you are so inclined, you can also read more about [Open Kanban](https://github.com/agilelion/Open-Kanban), an open-source flavor of the Kanban methodology.*
+
+## Slides
+
+If you just want the summary, take a quick peak through the slides.
+
+<div class="iframe-container">
+  <iframe src="//slides.com/gbanis/software-development-workflow-git-trello/embed?style=light" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+
 
 ## Tools of the Trade
 
