@@ -10,6 +10,8 @@ tags:
 author:       George Banis
 ---
 
+![Open Github repository page from the terminal (gif)](/assets/open-github-from-terminal.gif)
+
 ## TL;DR
 
 You are working on your repository and quickly want to quickly open its Github page. So you type `gh` in your terminal and voila!

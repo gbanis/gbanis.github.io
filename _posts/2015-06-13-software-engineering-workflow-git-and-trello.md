@@ -10,6 +10,7 @@ tags:
   - software engineering
 author:       George Banis
 ---
+![Software Engineering Workflow with Git and Trello (gif)](/assets/software-engineering-workflow.gif)
 
 If you are reading this post, you are probably looking for a *comprehensive* and *easy to follow* workflow.
 
