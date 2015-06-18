@@ -30,6 +30,9 @@ function gh() {
   # get your repository's remote origin url
   remote=$(git config --local --get remote.origin.url)
 
+  # removes '.git' from the end of the remote
+  remote=${remote%.git}
+
   # exit if there is no repository in the PWD
   if [ "$remote" == "" ]
     then
@@ -82,6 +85,7 @@ If you are using multiple Github accounts on the same machine, then the above sc
 
 function gh() {
   remote=$(git config --local --get remote.origin.url)
+  remote=${remote%.git}
   if [ "$remote" == "" ]
     then
      echo "Not a git repository or no remote.origin.url set"
