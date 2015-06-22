@@ -24,9 +24,9 @@ task :push do
   system "git push origin master:refs/heads/source --force"
 end
 
-namespace :post do
-  desc "Creates a new blog post in _drafts folder"
-  task :new do
+namespace :new do
+  task :post do
+    desc "Creates a new blog post in _drafts folder"
     STDOUT.print "Enter post name:\n> "
     post_name = STDIN.gets.chomp
     post_slug = post_name
@@ -48,6 +48,37 @@ tags:
   - enter tag
 author:       George Banis
 ---' > #{file_path}`
+  end
+
+  task :slides do
+    desc "Creates a new slide in _drafts folder"
+    STDOUT.print "Enter slide name:\n> "
+    post_name = STDIN.gets.chomp
+    post_slug = post_name
+      .gsub(/how to/i, "howto")
+      .gsub(/[^a-zA-Z ]/,'').gsub(/ +/,' ') # remove special characters and double spaces
+      .split(" ")
+      .map { |word| word.downcase }
+      .keep_if { |word| !STOPWORDS.index(word) }
+      .join("-")
+    current_date = Time.now.getutc.strftime("%Y-%m-%d")
+    file_path = "_posts/#{current_date}-#{post_slug}.html"
+  `echo '---
+layout:       slide
+title:        "#{post_name}"
+description:  "Enter description"
+date:         #{current_date} 12:00:00
+tags:
+  - slides
+  - enter tag
+author:       George Banis
+---
+<section data-markdown>
+  <script type="text/template">
+    Slide content in Markdown
+  </script>
+</section>
+' > #{file_path}`
   end
 end
 
