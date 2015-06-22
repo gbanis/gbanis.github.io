@@ -28,7 +28,6 @@ If you just want the summary, take a quick peak through the slides.
   <iframe src="//slides.com/gbanis/software-development-workflow-git-trello/embed?style=light" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
-
 ## Tools of the Trade
 
 The tools we'll be using are:
