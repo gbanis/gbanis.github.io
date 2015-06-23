@@ -66,10 +66,11 @@ author:       George Banis
   `echo '---
 layout:       slide
 title:        "#{post_name}"
-description:  "Enter description"
+description:  "ENTER A DESCRIPTION HERE (150-160 CHARACTERS"
 date:         #{current_date} 12:00:00
 tags:
   - slides
+  - enter tag
   - enter tag
 author:       George Banis
 ---

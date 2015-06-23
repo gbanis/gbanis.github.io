@@ -25,7 +25,7 @@ It is a variation of the popular [Kanban workflow](https://en.wikipedia.org/wiki
 If you just want the summary, take a quick peak through the slides.
 
 <div class="iframe-container">
-  <iframe src="//slides.com/gbanis/software-development-workflow-git-trello/embed?style=light" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  <iframe src="/blog/slides-software-engineering-workflow/#/" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 ## Tools of the Trade
