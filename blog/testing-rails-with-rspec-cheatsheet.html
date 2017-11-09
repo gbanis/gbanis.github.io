@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>Testing Rails with Rspec - Cheat Sheet</title>
+<meta name="description" content="Some basic notes about testing with RSpec. Taken from the relevant CodeSchool class.">
+
+<meta name="keywords" content="rails, rspec, testing, tdd/bdd, software engineer, machine learning, artificial intelligence, spark, java, kafka, hbase, hadoop, big data, etl">
+
+<link rel="canonical" href="http://gbanis.com/blog/testing-rails-with-rspec-cheatsheet">
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="http://gbanis.com/favicon.ico" />
+
+  <link rel="stylesheet" href="/css/main.css">
+
+  <!-- Google Fonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400|Anonymous+Pro|Bree+Serif' rel='stylesheet' type='text/css'>
+
+<!-- Fontawesome -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<!-- Google Analytics -->
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-19365634-4', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">George Banis</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        <!-- Adds all pages to the main navigation unless otherwise specified -->
+        <a class="page-link" href="/">Home</a> <a class="page-link" href="/about">About</a>
+        <a class="page-link" href="/resources/">Resources</a><a class="page-link" href="/contact">Contact</a>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Testing Rails with Rspec - Cheat Sheet</h1>
+
+    
+<!-- Post meta tags for individual post page -->
+<div class="post-meta">
+  <span class="post-date">Nov 13, 2014</span> • by <span class="post-author" itemscope itemtype="http://schema.org/Person"> <a href="https://plus.google.com/+GeorgeBanis" rel="publisher" itemprop="name">George Banis</a> </span>
+  
+  <p class="post-tags"><i class="fa fa-tags"></i>  <a href="/tags/rails" title="View posts tagged with &quot;rails&quot;"><u>rails</u></a>,   <a href="/tags/rspec" title="View posts tagged with &quot;rspec&quot;"><u>rspec</u></a>,   <a href="/tags/testing" title="View posts tagged with &quot;testing&quot;"><u>testing</u></a>,   <a href="/tags/tdd/bdd" title="View posts tagged with &quot;tdd/bdd&quot;"><u>tdd/bdd</u></a> </p>
+</div>
+
+
+
+
+
+
+
+  </header>
+
+  <article class="post-content">
+    <blockquote>
+  <p>This cheat sheet was influenced by <a href="http://rspec.codeschool.com/">Code School’s Testing with Rspec</a> course. I highly recommend you try the course!</p>
+</blockquote>
+
+<h2 id="installing">Installing</h2>
+
+<h3 id="add-the-gem">Add the gem</h3>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">group</span> <span class="ss">:development</span><span class="p">,</span> <span class="ss">:test</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">'rspec-rails'</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="initialize">Initialize</h3>
+
+<p>For a rails project:</p>
+
+<p><code class="highlighter-rouge">$ rails generate rspec:install</code></p>
+
+<p>For a simple ruby project</p>
+
+<p><code class="highlighter-rouge">$ rspec --init</code></p>
+
+<h2 id="running-rspec">Running Rspec</h2>
+
+<p>Running all specs:</p>
+
+<p><code class="highlighter-rouge">$ rspec</code></p>
+
+<p>Running all specs in a specific directory:</p>
+
+<p><code class="highlighter-rouge">$ rspec spec/models</code></p>
+
+<p>Running a specific file:</p>
+
+<p><code class="highlighter-rouge">$ rspec spec/models/zombie_spec.rb</code></p>
+
+<p>To run an example on a specific line, specify line number:</p>
+
+<p><code class="highlighter-rouge">$ rspec spec/models/zombie_spec.rb:4</code></p>
+
+<h3 id="formatted-results">Formatted results</h3>
+
+<p>Colorful test results:</p>
+
+<p><code class="highlighter-rouge">$ rspec --color spec/models/zombie_spec.rb</code></p>
+
+<p>Verbose output</p>
+
+<p><code class="highlighter-rouge">$ rspec --color --format documentation spec/models/zombie_spec.rb</code></p>
+
+<p>You can also put these commands in the .rspec file</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--color
+--format documentation
+</code></pre></div></div>
+
+<h2 id="a-basic-spec-file">A Basic Spec File</h2>
+
+<p>To <strong>describe</strong> the spec, in the <code class="highlighter-rouge">spec</code> file:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># /spec/lib/zombie_spec.rb</span>
+
+<span class="nb">require</span> <span class="s2">"spec_helper"</span>
+<span class="nb">require</span> <span class="s2">"zombie"</span>  <span class="c1"># Require the class</span>
+
+<span class="n">describe</span> <span class="no">Zombie</span> <span class="k">do</span>  <span class="c1"># Zombie is the name of the class we test</span>
+  <span class="n">it</span> <span class="s2">"is named Ash"</span> <span class="k">do</span>
+    <span class="n">zombie</span> <span class="o">=</span> <span class="no">Zombie</span><span class="p">.</span><span class="nf">new</span>
+    <span class="n">zombie</span><span class="p">.</span><span class="nf">name</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="s1">'Ash'</span> <span class="c1"># expectation</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">"has no brains"</span> <span class="k">do</span>
+    <span class="n">zombie</span> <span class="o">=</span> <span class="no">Zombie</span><span class="p">.</span><span class="nf">new</span>
+    <span class="n">zombie</span><span class="p">.</span><span class="nf">brains</span><span class="p">.</span><span class="nf">should</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="c1"># ('should' = matcher, '&lt;' = modifier)</span>
+  <span class="k">end</span>
+
+<span class="k">end</span>
+
+<span class="c1"># lib/zombie.rb</span>
+<span class="k">class</span> <span class="nc">Zombie</span>
+  <span class="nb">attr_accessor</span> <span class="ss">:name</span> <span class="ss">:brains</span>
+
+  <span class="k">def</span> <span class="nf">initialize</span>
+    <span class="vi">@name</span> <span class="o">=</span> <span class="s1">'Ash'</span>
+    <span class="vi">@brains</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="matchers">Matchers</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">zombie</span><span class="p">.</span><span class="nf">name</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="s1">'Ash'</span>
+
+<span class="n">zombie</span><span class="p">.</span><span class="nf">alive</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="kp">false</span>
+<span class="n">zombie</span><span class="p">.</span><span class="nf">alive</span><span class="p">.</span><span class="nf">should</span> <span class="n">be_false</span>
+
+<span class="n">zombie</span><span class="p">.</span><span class="nf">rotting</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="kp">true</span>
+<span class="n">zombie</span><span class="p">.</span><span class="nf">rotting</span><span class="p">.</span><span class="nf">should</span> <span class="n">be_true</span>
+
+<span class="n">zombie</span><span class="p">.</span><span class="nf">height</span><span class="p">.</span><span class="nf">should</span> <span class="o">&gt;</span> <span class="mi">5</span>
+<span class="n">zombie</span><span class="p">.</span><span class="nf">brains</span><span class="p">.</span><span class="nf">should</span> <span class="n">be</span> <span class="o">&gt;</span> <span class="mi">5</span>
+
+<span class="n">zombie</span><span class="p">.</span><span class="nf">hungry?</span><span class="p">.</span><span class="nf">should</span> <span class="n">be_true</span>
+<span class="n">zombie</span><span class="p">.</span><span class="nf">should</span> <span class="n">be_hungry</span>   <span class="c1"># this runs the 'hungry?' method</span>
+
+<span class="n">zombie</span><span class="p">.</span><span class="nf">should</span> <span class="n">be_valid</span>
+
+<span class="n">zombie</span><span class="p">.</span><span class="nf">name</span> <span class="n">should</span> <span class="n">match</span><span class="p">(</span><span class="sr">/Ash Clone \d/</span><span class="p">)</span>  <span class="c1"># to match a regexp</span>
+
+<span class="n">zombie</span><span class="p">.</span><span class="nf">tweets</span><span class="p">.</span><span class="nf">should</span> <span class="kp">include</span><span class="p">(</span><span class="n">tweet1</span><span class="p">)</span>  <span class="c1"># tests if item (tweet1) is part of an array (tweets)</span>
+
+<span class="n">zombie</span><span class="p">.</span><span class="nf">weapons</span><span class="p">.</span><span class="nf">count</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="n">zombie</span><span class="p">.</span><span class="nf">should</span> <span class="n">have</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nf">weapons</span>  <span class="c1"># same as above</span>
+<span class="n">zombie</span>
+<span class="n">zombie</span><span class="p">.</span><span class="nf">should</span> <span class="n">have_at_least</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nf">weapons</span>
+<span class="n">zombie</span><span class="p">.</span><span class="nf">should</span> <span class="n">have_at_most</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nf">weapons</span>
+
+<span class="n">expect</span> <span class="p">{</span> <span class="n">zombie</span><span class="p">.</span><span class="nf">save</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">change</span> <span class="p">{</span> <span class="no">Zombie</span><span class="p">.</span><span class="nf">count</span> <span class="p">}.</span><span class="nf">by</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Zombie.count runs before and after expect, results are compared with number in 'by'</span>
+<span class="n">expect</span> <span class="p">{</span> <span class="n">zombie</span><span class="p">.</span><span class="nf">save</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">change</span> <span class="p">{</span> <span class="no">Zombie</span><span class="p">.</span><span class="nf">count</span> <span class="p">}.</span><span class="nf">from</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nf">to</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">expect</span> <span class="p">{</span> <span class="n">zombie</span><span class="p">.</span><span class="nf">save!</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">raise_error</span> <span class="p">(</span><span class="no">ActiveRecord</span><span class="ss">:RecordInvalid</span><span class="p">)</span>  <span class="c1"># passing an exception is optional</span>
+<span class="n">expect</span> <span class="p">{</span> <span class="n">zombie</span><span class="p">.</span><span class="nf">save!</span> <span class="p">}.</span><span class="nf">not_to</span> <span class="n">raise_error</span>
+<span class="n">expect</span> <span class="p">{</span> <span class="n">zombie</span><span class="p">.</span><span class="nf">save!</span> <span class="p">}.</span><span class="nf">to_not</span> <span class="n">raise_error</span>  <span class="c1"># same as above</span>
+
+<span class="c1"># respond_to(&lt;method_name&gt;)</span>
+<span class="vi">@zombie</span><span class="p">.</span><span class="nf">should</span> <span class="n">respond_to</span><span class="p">(</span><span class="n">hungry?</span><span class="p">)</span>
+
+<span class="c1"># be_within(&lt;range&gt;).of(&lt;expected&gt;)</span>
+<span class="vi">@width</span><span class="p">.</span><span class="nf">should</span> <span class="n">be_within</span><span class="p">(</span><span class="mf">0.1</span><span class="p">).</span><span class="nf">of</span><span class="p">(</span><span class="mf">33.3</span><span class="p">)</span>
+
+<span class="c1"># exist</span>
+<span class="vi">@zombie</span><span class="p">.</span><span class="nf">should</span> <span class="n">exist</span>
+
+<span class="c1"># satisfy { &lt;block&gt; }</span>
+<span class="vi">@zombie</span><span class="p">.</span><span class="nf">should</span> <span class="n">satisfy</span> <span class="p">{</span> <span class="o">|</span><span class="n">zombie</span><span class="o">|</span> <span class="n">zombie</span><span class="p">.</span><span class="nf">hungry?</span> <span class="p">}</span>
+
+<span class="c1"># be_kind_of(&lt;class&gt;)</span>
+<span class="vi">@hungry_zombie</span><span class="p">.</span><span class="nf">should</span> <span class="n">be_kind_of</span><span class="p">(</span><span class="no">Zombie</span><span class="p">)</span>  <span class="c1"># HungryZombie &lt; Zombie</span>
+
+<span class="c1"># be_an_instance_of(&lt;class&gt;)</span>
+<span class="vi">@status</span><span class="p">.</span><span class="nf">should</span> <span class="n">be_an_instance_of</span><span class="p">(</span><span class="no">String</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="mark-as-pending">Mark as pending</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xit</span> <span class="s2">"is named Ash"</span> <span class="k">do</span>
+  <span class="o">...</span>
+<span class="k">end</span>
+
+<span class="c1"># or</span>
+
+<span class="n">it</span> <span class="s2">"is named Ash"</span> <span class="k">do</span>
+  <span class="n">pending</span>
+  <span class="o">...</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="dry-specs">DRY SPECS</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Shortening code</span>
+<span class="n">describe</span> <span class="no">Zombie</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'responds to name'</span> <span class="k">do</span>
+    <span class="n">subject</span><span class="p">.</span><span class="nf">should</span> <span class="n">respond_to</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span>  <span class="c1"># 'subject' = Zombie.new</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">describe</span> <span class="no">Zombie</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'responds to name'</span> <span class="k">do</span>
+    <span class="n">should</span> <span class="n">respond_to</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span>  <span class="c1"># we don't need to specify subject</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">describe</span> <span class="no">Zombie</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">respond_to</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span> <span class="p">}</span>  <span class="c1"># even shorter</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Best code</span>
+<span class="n">describe</span> <span class="no">Zombie</span> <span class="k">do</span>
+  <span class="n">its</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span> <span class="p">{</span> <span class="n">should</span> <span class="o">==</span> <span class="s1">'Ash'</span> <span class="p">}</span>  <span class="c1"># even shorterer</span>
+  <span class="n">its</span><span class="p">(</span><span class="ss">:weapons</span><span class="p">)</span> <span class="p">{</span> <span class="n">should</span> <span class="kp">include</span><span class="p">(</span><span class="n">weapon</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">its</span><span class="p">(</span><span class="ss">:brains</span><span class="p">)</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_nil</span> <span class="p">}</span>
+  <span class="n">its</span><span class="p">(</span><span class="s1">'tweets.size'</span><span class="p">)</span> <span class="p">{</span> <span class="n">should</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">}</span>
+<span class="k">end</span>
+
+</code></pre></div></div>
+
+<h3 id="nesting">Nesting</h3>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">describe</span> <span class="no">Zombie</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s1">'when hungry'</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s1">'craves brains'</span>
+    <span class="n">describe</span> <span class="s1">'with a veggie preference'</span> <span class="k">do</span>
+      <span class="n">it</span> <span class="s1">'still craves brains'</span>
+      <span class="n">it</span> <span class="s1">'prefers vegan brains'</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># the same thing can be written using 'context'</span>
+<span class="n">describe</span> <span class="no">Zombie</span> <span class="k">do</span>
+  <span class="n">context</span> <span class="s1">'when hungry'</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s1">'craves brains'</span>
+    <span class="n">context</span> <span class="s1">'with a veggie preference'</span> <span class="k">do</span>
+      <span class="n">it</span> <span class="s1">'still craves brains'</span>
+      <span class="n">it</span> <span class="s1">'prefers vegan brains'</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="using-subject">Using Subject</h3>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+  <span class="n">context</span> <span class="s1">'with a veggie preference'</span> <span class="k">do</span>
+    <span class="n">subject</span> <span class="p">{</span> <span class="no">Zombie</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">vegetarian: </span><span class="kp">true</span><span class="p">)</span> <span class="p">}</span>
+
+    <span class="n">it</span> <span class="s1">'craves vegan brains'</span> <span class="k">do</span>
+      <span class="n">craving</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="s1">'vegan brains'</span>
+      <span class="n">its</span><span class="p">(</span><span class="ss">:craving</span><span class="p">)</span> <span class="p">{</span> <span class="n">should</span> <span class="o">==</span> <span class="s1">'vegan brains'</span> <span class="p">}</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+</code></pre></div></div>
+
+<p>Newer syntax:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">context</span> <span class="s1">'with a veggie preference'</span> <span class="k">do</span>
+  <span class="n">subject</span><span class="p">(</span><span class="ss">:zombie</span><span class="p">)</span> <span class="p">{</span> <span class="no">Zombie</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">vegetarian: </span><span class="kp">true</span><span class="p">,</span> <span class="ss">weapons: </span><span class="p">[</span><span class="n">axe</span><span class="p">])}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:axe</span><span class="p">)</span> <span class="p">{</span> <span class="no">Weapon</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'axe'</span><span class="p">)</span>  <span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="hooks">Hooks</h2>
+
+<p>To run a piece of code before each test:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">before</span> <span class="p">{</span> <span class="n">zombie</span><span class="p">.</span><span class="nf">hungry!</span> <span class="p">}</span>
+  <span class="n">before</span><span class="p">(</span><span class="ss">:each</span><span class="p">)</span> <span class="p">{}</span>  <span class="c1"># Same as above</span>
+  <span class="n">before</span><span class="p">(</span><span class="ss">:all</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="n">after</span><span class="p">(</span><span class="ss">:each</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="n">after</span><span class="p">(</span><span class="ss">:all</span><span class="p">)</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<h2 id="shared-examples">Shared Examples</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># spec/models/zombie_spec.rb</span>
+<span class="n">describe</span> <span class="no">Zombie</span> <span class="k">do</span>
+  <span class="n">it_behaves_like</span> <span class="s1">'the undead'</span>
+<span class="k">end</span>
+
+<span class="c1"># spec/models/vampire_spec.rb</span>
+<span class="n">describe</span> <span class="no">Vampire</span> <span class="k">do</span>
+  <span class="n">it_behaves_like</span> <span class="s1">'the undead'</span>
+<span class="k">end</span>
+
+<span class="c1"># Shared Example</span>
+<span class="c1"># spec/support/shared_examples_for_undead.rb</span>
+<span class="n">shared_examples_for</span> <span class="s1">'the undead'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'does not have a pulse'</span> <span class="k">do</span>
+    <span class="n">subject</span><span class="p">.</span><span class="nf">pulse</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="kp">false</span>  <span class="c1"># the implicit 'subject'</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Same as above:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># spec/models/zombie_spec.rb</span>
+<span class="n">describe</span> <span class="no">Zombie</span> <span class="k">do</span>
+  <span class="n">it_behaves_like</span> <span class="s1">'the undead'</span> <span class="k">do</span>
+    <span class="n">let</span><span class="p">(</span><span class="ss">:undead</span><span class="p">)</span> <span class="p">{</span> <span class="no">Zombie</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># spec/support/shared_examples_for_undead.rb</span>
+<span class="n">shared_examples_for</span> <span class="s1">'the undead'</span>
+  <span class="n">it</span> <span class="s1">'does not have a pulse'</span> <span class="k">do</span>
+    <span class="n">undead</span><span class="p">.</span><span class="nf">pulse</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="kp">false</span>  <span class="c1"># we can access the 'undead' defined in 'let'</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Same as above:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># spec/models/zombie_spec.rb</span>
+<span class="n">describe</span> <span class="no">Zombie</span> <span class="k">do</span><span class="p">,</span> <span class="no">Zombie</span><span class="p">.</span><span class="nf">new</span>  <span class="c1"># pass the instance as the second parameter</span>
+  <span class="n">it_behaves_like</span> <span class="s1">'the undead'</span>
+<span class="k">end</span>
+
+<span class="c1"># spec/support/shared_examples_for_undead.rb</span>
+<span class="n">shared_examples_for</span> <span class="s1">'the undead'</span> <span class="k">do</span> <span class="o">|</span><span class="n">undead</span><span class="o">|</span>  <span class="c1"># pick the second parameter (Zombie instance) as 'undead'</span>
+  <span class="n">it</span> <span class="s1">'does not have a pulse'</span> <span class="k">do</span>
+    <span class="n">undead</span><span class="p">.</span><span class="nf">pulse</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="kp">false</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="metadata-and-filters">Metadata and Filters</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># spec/lib/zombie_spec.rb</span>
+<span class="n">describe</span> <span class="no">Zombie</span> <span class="k">do</span>
+  <span class="n">context</span> <span class="s1">'when hungry'</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s1">'wants brains'</span>
+    <span class="n">context</span> <span class="s1">'with a veggie preference'</span><span class="p">,</span> <span class="n">slow</span><span class="ss">:true</span> <span class="k">do</span>
+      <span class="n">it</span> <span class="s1">'still craves brains'</span>
+      <span class="n">it</span> <span class="s1">'prefers vegan brains'</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Runs all tests filtered with slow:</p>
+
+<p><code class="highlighter-rouge">$ rspec --tag slow spec/lib/zombie_spec.rb</code></p>
+
+<p>Runs tests NOT filtered with slow:</p>
+
+<p><code class="highlighter-rouge">$ rspec --tag ~slow spec/lib/zombie_spec.rb</code></p>
+
+<h2 id="mocking-and-stubbing">Mocking and Stubbing</h2>
+
+<p><code class="highlighter-rouge">Stub</code> replaces a method with code that returns a specified result.</p>
+
+<p><code class="highlighter-rouge">Mock</code> is a stub with expectations that the method gets called.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">zombie</span><span class="p">.</span><span class="nf">weapon</span><span class="p">.</span><span class="nf">stub</span><span class="p">(</span><span class="ss">:slice</span><span class="p">)</span>  <span class="c1"># blocks the method slice</span>
+<span class="n">zombie</span><span class="p">.</span><span class="nf">weapon</span><span class="p">.</span><span class="nf">should_receive</span><span class="p">(</span><span class="ss">:slice</span><span class="p">)</span>
+</code></pre></div></div>
+
+  </article>
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <!-- <h2 class="footer-heading">George Banis</h2> -->
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>George Banis</li>
+          
+          <li>Tech Lead @ HubSpot</li>
+          
+          
+          <li>Boston, MA</li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <i class="fa fa-github"></i>
+            <a href="https://github.com/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <i class="fa fa-twitter"></i>
+            <a href="https://twitter.com/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <i class="fa fa-linkedin"></i>
+            <a href="https://linkedin.com/in/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="site-description">George Banis is the Tech Lead of the Machine Learning Data team at HubSpot. In this blog he talks about software engineering, machine learning, architecture, and performance.</p>
+      </div>
+    </div>
+    <div class="credits">
+  <p>2015 &copy; <a href="http://gbanis.com" title="George Banis, full stack web developer">George Banis</a> - All contents are <a href="http://creativecommons.org/licenses/by-nc/3.0/us/" target="_blank">Creative Commons</a> licensed.</p>
+  <p>This website was built with <i class="fa fa-heart"></i> in Boston.</p>
+  <p>
+  <!-- If a page has "menu: footer" it will displayed here, in the footer menu. -->
+    <a class="footer-menu" href="/affiliate-disclaimer/" title="Affiliate Disclaimer">Affiliate Disclaimer</a> | <a class="footer-menu" href="/privacy-policy/" title="Privacy Policy">Privacy Policy</a> | <a class="footer-menu rss-subscribe" href="/feed.xml">RSS Feed</a>
+  </p>
+</div>
+
+
+  </div>
+</footer>
+<script src="/scripts/header-hover-anchor.js"></script>
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/742405.js"></script>
+<!-- End of HubSpot Embed Code -->
+
+
+  </body>
+
+</html>

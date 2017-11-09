@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>Flux without Flux: Using Flux Architecture in Plain React</title>
+<meta name="description" content="How to organize React in a way that uses the Flux architecture without a Flux library.">
+
+<meta name="keywords" content="ReactJS, Flux, software engineer, machine learning, artificial intelligence, spark, java, kafka, hbase, hadoop, big data, etl">
+
+<link rel="canonical" href="http://gbanis.com/blog/flux-without-flux-using-flux-architecture-plain-react">
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="http://gbanis.com/favicon.ico" />
+
+  <link rel="stylesheet" href="/css/main.css">
+
+  <!-- Google Fonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400|Anonymous+Pro|Bree+Serif' rel='stylesheet' type='text/css'>
+
+<!-- Fontawesome -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<!-- Google Analytics -->
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-19365634-4', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">George Banis</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        <!-- Adds all pages to the main navigation unless otherwise specified -->
+        <a class="page-link" href="/">Home</a> <a class="page-link" href="/about">About</a>
+        <a class="page-link" href="/resources/">Resources</a><a class="page-link" href="/contact">Contact</a>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Flux without Flux: Using Flux Architecture in Plain React</h1>
+
+    
+<!-- Post meta tags for individual post page -->
+<div class="post-meta">
+  <span class="post-date">May 25, 2015</span> • by <span class="post-author" itemscope itemtype="http://schema.org/Person"> <a href="https://plus.google.com/+GeorgeBanis" rel="publisher" itemprop="name">George Banis</a> </span>
+  
+  <p class="post-tags"><i class="fa fa-tags"></i>  <a href="/tags/ReactJS" title="View posts tagged with &quot;ReactJS&quot;"><u>ReactJS</u></a>,   <a href="/tags/Flux" title="View posts tagged with &quot;Flux&quot;"><u>Flux</u></a> </p>
+</div>
+
+
+
+
+
+
+
+  </header>
+
+  <article class="post-content">
+    <h2 id="tldr">TL;DR</h2>
+
+<p>You can replicate the Flux architecture using plain React, building applications and reusable components that are easy to reason about, maintain, and extend.</p>
+
+<p>Just get <a href="https://facebook.github.io/flux/img/flux-simple-f8-diagram-with-client-action-1300w.png">Flux’s architecture chart</a> and replace:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">action</code> with <code class="highlighter-rouge">event</code></li>
+  <li><code class="highlighter-rouge">dispatcher</code> with a <code class="highlighter-rouge">callback</code> in your parent (controller) component that you pass down to every child component</li>
+  <li><code class="highlighter-rouge">stores</code> with <code class="highlighter-rouge">state</code></li>
+  <li><code class="highlighter-rouge">views</code> are the same old React <code class="highlighter-rouge">views</code></li>
+</ul>
+
+<h2 id="intro">Intro</h2>
+
+<p>If you are into ReactJS you probably wondered whether or not you should use Flux.</p>
+
+<p>In this post I’ll share with you a design pattern that implements a very similar Flux architecture, but using just plain React.</p>
+
+<p>I have tested this “Flux without Flux” in many different settings, including reusable components, with great success and I’d love it if you gave it a try and let me know what you think.</p>
+
+<h2 id="to-flux-or-not-to-flux">To Flux or not to Flux?</h2>
+
+<p>This is a very common dilemma among engineers that use React — and rightfully so.</p>
+
+<p>You want to keep your code better organized so that it is easier to reason about and allow the rest of your team to quickly understand how your application is structured.</p>
+
+<p>On the other hand, you looked at the <a href="https://facebook.github.io/flux/docs/overview.html">online Flux documentation</a>, maybe tried to walk through some of the <a href="https://github.com/facebook/flux/tree/master/examples">Flux examples</a>, and started having second thoughts:</p>
+
+<ul>
+  <li>It looks more complicated than just using React</li>
+  <li>Will my team be able to pick it up quickly?</li>
+  <li>Which <a href="https://reactjsnews.com/the-state-of-flux/">Flux flavor</a> should I pick?</li>
+</ul>
+
+<p>Sound familiar?</p>
+
+<p>Well, don’t despair!</p>
+
+<p>The “Flux without Flux” pattern that I’m about to share will give you many of the benefits of Flux architecture while using vanilla React.</p>
+
+<blockquote>
+  <p>Disclaimer: I have not used Flux extensively so I can’t speak about how this pattern compares with it or in which cases you might need to use the actual Flux architecture over the “Flux without Flux” patter that I am suggesting. Please use your own judgment. This might not be the perfect solution to all your problems.</p>
+</blockquote>
+
+<h2 id="a-quick-flux-recap">A Quick Flux Recap</h2>
+
+<p>If you visited Facebook’s <a href="https://facebook.github.io/flux/docs/overview.html#structure-and-data-flow">Flux documentation</a> you probably came across this chart:</p>
+
+<p><img src="https://facebook.github.io/flux/img/flux-simple-f8-diagram-with-client-action-1300w.png" alt="Flux data flow" /></p>
+
+<p>The basic premise of the Flux architecture is:</p>
+
+<ul>
+  <li>An <code class="highlighter-rouge">action</code> is triggered which creates a <code class="highlighter-rouge">payload</code> and hands it to the <code class="highlighter-rouge">dispatcher</code></li>
+  <li>The <code class="highlighter-rouge">dispatcher</code> delegates the <code class="highlighter-rouge">payload</code> to all the <code class="highlighter-rouge">stores</code> registered with it</li>
+  <li>The <code class="highlighter-rouge">stores</code> update themselves and emit a change event</li>
+  <li>The React <code class="highlighter-rouge">views</code> listen to the change events and update themselves based on the new data from the stores</li>
+</ul>
+
+<h2 id="the-flux-without-flux-pattern">The Flux without Flux Pattern</h2>
+
+<p>In the FWF pattern, the Flux architecture is adapted to use React elements:</p>
+
+<p><code class="highlighter-rouge">Event =&gt; onAction =&gt; State =&gt; View</code></p>
+
+<ul>
+  <li>A user interacts with your application and triggers an <code class="highlighter-rouge">event</code></li>
+  <li>The event handler creates a <code class="highlighter-rouge">payload</code> and hands it to the parent component’s <code class="highlighter-rouge">onAction</code></li>
+  <li>The <code class="highlighter-rouge">onAction</code> calls the appropriate method that updates the <code class="highlighter-rouge">state</code></li>
+  <li>React automatically updates all components passing new <code class="highlighter-rouge">props</code> to them</li>
+</ul>
+
+<p>Not 100% sure how to piece this together?</p>
+
+<p>In the parent component create a callback method (I like to call it <code class="highlighter-rouge">onAction</code>) and pass it down to all your child components via <code class="highlighter-rouge">props</code>.</p>
+
+<p>When an event gets triggered, call the appropriate child component’s event handler. In it, create a <code class="highlighter-rouge">payload</code> object with an <code class="highlighter-rouge">action</code> and a <code class="highlighter-rouge">value</code>. Then, call the parent’s <code class="highlighter-rouge">onAction</code>, that is passed down via <code class="highlighter-rouge">props</code>, giving it the <code class="highlighter-rouge">payload</code> you created.</p>
+
+<p>Finally, in the parent component use a <code class="highlighter-rouge">switch</code> that reads the <code class="highlighter-rouge">payload.action</code> and delegates it to the appropriate method that knows how to update the <code class="highlighter-rouge">state</code> with the <code class="highlighter-rouge">payload.value</code>.</p>
+
+<p>React takes care of the rest automatically.</p>
+
+<h2 id="a-simple-flux-without-flux-example">A Simple “Flux without Flux” Example</h2>
+
+<p>Here’s an example of the “Flux without Flux” pattern:</p>
+
+<iframe width="100%" height="400" src="//jsfiddle.net/gbanis/zve3xngL/3/embedded/js,html,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<p>In this example I’ve created a simple application allows us to create and list <code class="highlighter-rouge">comments</code>.</p>
+
+<p>Let’s walk through this example:</p>
+
+<ul>
+  <li>
+    <p>Clicking the <code class="highlighter-rouge">submit</code> button in <code class="highlighter-rouge">NewComment</code> uses <code class="highlighter-rouge">this.props.onAction</code> to dispatch an action with <code class="highlighter-rouge">payload</code>:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>payload = {
+  action: "SUBMIT_NEW_COMMENT"
+  comment: {
+    comment: this.state.comment,
+    author: this.state.author
+  }
+}
+</code></pre></div>    </div>
+  </li>
+  <li><code class="highlighter-rouge">onAction</code> grabs the <code class="highlighter-rouge">payload</code>, runs it through the <code class="highlighter-rouge">switch</code> and calls <code class="highlighter-rouge">_onSubmitNewComment</code></li>
+  <li><code class="highlighter-rouge">_onSubmitNewComment</code> updates the state of the parent component, <code class="highlighter-rouge">CommentApp</code></li>
+  <li><code class="highlighter-rouge">CommentApp</code> passes the new <code class="highlighter-rouge">comments</code> from its <code class="highlighter-rouge">state</code> down to <code class="highlighter-rouge">CommentList</code> via <code class="highlighter-rouge">props</code></li>
+  <li><code class="highlighter-rouge">CommentList</code> updates, rendering the new list of <code class="highlighter-rouge">comments</code></li>
+</ul>
+
+<h2 id="final-thoughts">Final Thoughts</h2>
+
+<p>I’ve started using the “Flux without Flux” pattern recently and so far it feels very nice and effortless. Things are where my team and I expect them to be and it’s quite easy to navigate around the codebase.</p>
+
+<p>I also find it easy to reason about events and their consequences. Plus, I can just use the React I know and love!</p>
+
+<p>That being said, this is a fairly new pattern and React is not that old either. So please take my suggestions with a grain of salt and if you decide to give this a try, I’d love to hear about your experience!</p>
+
+  </article>
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <!-- <h2 class="footer-heading">George Banis</h2> -->
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>George Banis</li>
+          
+          <li>Tech Lead @ HubSpot</li>
+          
+          
+          <li>Boston, MA</li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <i class="fa fa-github"></i>
+            <a href="https://github.com/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <i class="fa fa-twitter"></i>
+            <a href="https://twitter.com/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <i class="fa fa-linkedin"></i>
+            <a href="https://linkedin.com/in/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="site-description">George Banis is the Tech Lead of the Machine Learning Data team at HubSpot. In this blog he talks about software engineering, machine learning, architecture, and performance.</p>
+      </div>
+    </div>
+    <div class="credits">
+  <p>2015 &copy; <a href="http://gbanis.com" title="George Banis, full stack web developer">George Banis</a> - All contents are <a href="http://creativecommons.org/licenses/by-nc/3.0/us/" target="_blank">Creative Commons</a> licensed.</p>
+  <p>This website was built with <i class="fa fa-heart"></i> in Boston.</p>
+  <p>
+  <!-- If a page has "menu: footer" it will displayed here, in the footer menu. -->
+    <a class="footer-menu" href="/affiliate-disclaimer/" title="Affiliate Disclaimer">Affiliate Disclaimer</a> | <a class="footer-menu" href="/privacy-policy/" title="Privacy Policy">Privacy Policy</a> | <a class="footer-menu rss-subscribe" href="/feed.xml">RSS Feed</a>
+  </p>
+</div>
+
+
+  </div>
+</footer>
+<script src="/scripts/header-hover-anchor.js"></script>
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/742405.js"></script>
+<!-- End of HubSpot Embed Code -->
+
+
+  </body>
+
+</html>

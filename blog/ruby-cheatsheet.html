@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>Ruby Cheat Sheet</title>
+<meta name="description" content="A nifty little cheat sheat with the basics of the Ruby language.">
+
+<meta name="keywords" content="coding, cheat sheets, ruby, software engineer, machine learning, artificial intelligence, spark, java, kafka, hbase, hadoop, big data, etl">
+
+<link rel="canonical" href="http://gbanis.com/blog/ruby-cheatsheet">
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="http://gbanis.com/favicon.ico" />
+
+  <link rel="stylesheet" href="/css/main.css">
+
+  <!-- Google Fonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400|Anonymous+Pro|Bree+Serif' rel='stylesheet' type='text/css'>
+
+<!-- Fontawesome -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<!-- Google Analytics -->
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-19365634-4', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">George Banis</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        <!-- Adds all pages to the main navigation unless otherwise specified -->
+        <a class="page-link" href="/">Home</a> <a class="page-link" href="/about">About</a>
+        <a class="page-link" href="/resources/">Resources</a><a class="page-link" href="/contact">Contact</a>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Ruby Cheat Sheet</h1>
+
+    
+<!-- Post meta tags for individual post page -->
+<div class="post-meta">
+  <span class="post-date">Nov 2, 2014</span> • by <span class="post-author" itemscope itemtype="http://schema.org/Person"> <a href="https://plus.google.com/+GeorgeBanis" rel="publisher" itemprop="name">George Banis</a> </span>
+  
+  <p class="post-tags"><i class="fa fa-tags"></i>  <a href="/tags/coding" title="View posts tagged with &quot;coding&quot;"><u>coding</u></a>,   <a href="/tags/cheat sheets" title="View posts tagged with &quot;cheat sheets&quot;"><u>cheat sheets</u></a>,   <a href="/tags/ruby" title="View posts tagged with &quot;ruby&quot;"><u>ruby</u></a> </p>
+</div>
+
+
+
+
+
+
+
+  </header>
+
+  <article class="post-content">
+    <h2 id="data-types">Data Types</h2>
+
+<p>Numbers:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">123</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">123</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">1_234</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mf">123.45</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mf">1.2e-3</span>
+</code></pre></div></div>
+
+<p>Strings:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'no interpolation'</span>
+<span class="s2">"</span><span class="si">#{</span><span class="n">interpolation</span><span class="si">}</span><span class="s2"> and backslashes</span><span class="se">\n</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Symbols:</p>
+
+<p>A symbol is an immutable name used for identifiers, variables, and operators.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ss">:symbol</span>
+</code></pre></div></div>
+
+<p>Ranges:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span><span class="o">..</span><span class="mi">10</span>
+<span class="s1">'a'</span><span class="o">..</span><span class="s1">'z'</span>
+<span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># inclusive</span>
+<span class="p">(</span><span class="mi">1</span><span class="o">...</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># exclusive</span>
+</code></pre></div></div>
+
+<p>Arrays:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="sx">%w(foo bar baz)</span>    <span class="c1"># no interpolation</span>
+<span class="sx">%W(foo </span><span class="si">#{</span><span class="n">bar</span><span class="si">}</span><span class="sx"> baz)</span> <span class="c1"># interpolation</span>
+</code></pre></div></div>
+
+<p>Hashes:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span> <span class="ss">number: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">string: </span><span class="s1">'hi'</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Variables and Constants:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="vg">$global_variable</span>
+<span class="vi">@instance_variable</span>
+<span class="p">[</span><span class="no">OtherClass</span><span class="o">::</span><span class="p">]</span><span class="no">CONSTANT</span> <span class="c1"># eg. Math::PI</span>
+<span class="n">local_variable</span>
+</code></pre></div></div>
+
+<h2 id="control-operations">Control Operations</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span>
+  <span class="c1"># body</span>
+<span class="k">elsif</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="n">a</span>
+  <span class="c1"># body</span>
+<span class="k">else</span>
+  <span class="c1"># body</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">unless</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span>   <span class="c1"># 'unless a == b' is same as 'if a != b'</span>
+  <span class="c1"># body</span>
+<span class="k">else</span>
+  <span class="c1"># body</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">do_something</span> <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span>
+<span class="n">do_something</span> <span class="k">unless</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="p">?</span> <span class="n">do_something_if_true</span> <span class="p">:</span> <span class="n">do_something_if_false</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="n">grade</span>
+<span class="k">when</span> <span class="s2">"A"</span>
+  <span class="nb">puts</span> <span class="s1">'Well done!'</span>
+<span class="k">when</span> <span class="s2">"B"</span>
+  <span class="nb">puts</span> <span class="s1">'Try harder!'</span>
+<span class="k">when</span> <span class="s2">"C"</span>
+  <span class="nb">puts</span> <span class="s1">'You need help!!!'</span>
+<span class="k">else</span>
+  <span class="nb">puts</span> <span class="s2">"You just making it up!"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="loops">Loops</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="n">conditional</span> <span class="p">[</span><span class="k">do</span><span class="p">]</span>
+   <span class="n">code</span>
+<span class="k">end</span>
+
+<span class="n">code</span> <span class="k">while</span> <span class="n">condition</span>
+
+<span class="k">begin</span>
+  <span class="n">code</span>
+<span class="k">end</span> <span class="k">while</span> <span class="n">conditional</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">until</span> <span class="n">conditional</span> <span class="p">[</span><span class="k">do</span><span class="p">]</span>
+   <span class="n">code</span>
+<span class="k">end</span>
+
+<span class="n">code</span> <span class="k">until</span> <span class="n">conditional</span>
+
+<span class="k">begin</span>
+   <span class="n">code</span>
+<span class="k">end</span> <span class="k">until</span> <span class="n">conditional</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">expression</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">variable</span><span class="p">[,</span> <span class="n">variable</span><span class="o">...</span><span class="p">]</span><span class="o">|</span>
+  <span class="n">code</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span>
+   <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">then</span>
+      <span class="k">break</span>   <span class="c1"># use break to exit the loop</span>
+   <span class="k">end</span>
+   <span class="nb">puts</span> <span class="s2">"Value of local variable is </span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="methods">Methods</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define</span>
+<span class="k">def</span> <span class="nf">method_name</span>
+   <span class="n">expr</span><span class="o">..</span>
+   <span class="c1"># By default returns the evaluation of the last line of code</span>
+   <span class="c1"># 'return' is optional</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">method_name</span> <span class="p">(</span><span class="n">var1</span><span class="p">,</span> <span class="n">var2</span><span class="p">,</span> <span class="n">optional_val</span> <span class="o">=</span> <span class="n">value</span><span class="p">)</span>
+   <span class="n">expr</span><span class="o">..</span>
+<span class="k">end</span>
+
+<span class="c1"># invoke</span>
+<span class="n">method_name</span>
+<span class="n">method_name</span><span class="p">(</span><span class="n">var1</span><span class="p">,</span> <span class="n">var2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="classes">Classes</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Identifier</span> <span class="o">&lt;</span> <span class="no">Superclass</span>
+  <span class="c1"># Accessors</span>
+  <span class="nb">attr_reader</span>
+  <span class="nb">attr_writer</span>
+  <span class="nb">attr_accessor</span>
+
+  <span class="k">def</span> <span class="nf">initializer</span> <span class="p">(</span><span class="n">var1</span><span class="p">,</span> <span class="n">var2</span><span class="p">)</span>
+    <span class="vi">@var1</span> <span class="o">=</span> <span class="n">var1</span>
+    <span class="vi">@var2</span> <span class="o">=</span> <span class="n">var2</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">public_method</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+
+  <span class="kp">protected</span>
+  <span class="c1"># accessable only by instances of class and direct descendants</span>
+
+  <span class="kp">private</span>
+  <span class="c1"># accessable only by instances of class</span>
+
+<span class="k">end</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b</span> <span class="o">=</span> <span class="no">B</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">va1</span><span class="p">,</span> <span class="n">var2</span><span class="p">)</span>
+<span class="n">b</span><span class="p">.</span><span class="nf">class_method</span>
+</code></pre></div></div>
+
+<h2 id="modules">Modules</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">Identifier</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="exceptions">Exceptions</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">InvalidUserInput</span> <span class="o">&lt;</span> <span class="no">Exception</span>
+<span class="k">end</span>
+
+<span class="k">begin</span>
+  <span class="nb">puts</span> <span class="s2">"Select a column to place an </span><span class="se">\'</span><span class="si">#{</span><span class="n">color</span><span class="si">}</span><span class="se">\'</span><span class="s2"> piece:"</span>
+  <span class="n">move</span> <span class="o">=</span> <span class="nb">gets</span><span class="p">.</span><span class="nf">chomp</span><span class="p">.</span><span class="nf">to_i</span>
+
+  <span class="c1"># checks if user tries to play a move outside the board</span>
+  <span class="k">raise</span> <span class="no">InvalidUserInput</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"Invalid input. Select a number between 1 and </span><span class="si">#{</span><span class="vi">@col_num</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="k">unless</span> <span class="n">move</span><span class="p">.</span><span class="nf">between?</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="vi">@col_num</span><span class="p">)</span>
+  <span class="c1"># checks if user tries to play a move at a full column</span>
+  <span class="k">raise</span> <span class="no">InvalidUserInput</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"You can't put another checker in row </span><span class="si">#{</span><span class="n">move</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span> <span class="k">unless</span> <span class="vi">@board</span><span class="p">[</span><span class="n">move</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="nf">length</span> <span class="o">&lt;</span> <span class="vi">@row_num</span>
+
+<span class="k">rescue</span> <span class="no">InvalidUserInput</span> <span class="o">=&gt;</span> <span class="n">error</span>
+  <span class="nb">puts</span> <span class="n">error</span>
+  <span class="k">retry</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="http://www.tutorialspoint.com">http://www.tutorialspoint.com</a></li>
+  <li><a href="http://overapi.com">http://overapi.com/</a></li>
+  <li><a href="http://www.skorks.com/">http://www.skorks.com</a></li>
+</ul>
+
+  </article>
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <!-- <h2 class="footer-heading">George Banis</h2> -->
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>George Banis</li>
+          
+          <li>Tech Lead @ HubSpot</li>
+          
+          
+          <li>Boston, MA</li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <i class="fa fa-github"></i>
+            <a href="https://github.com/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <i class="fa fa-twitter"></i>
+            <a href="https://twitter.com/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <i class="fa fa-linkedin"></i>
+            <a href="https://linkedin.com/in/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="site-description">George Banis is the Tech Lead of the Machine Learning Data team at HubSpot. In this blog he talks about software engineering, machine learning, architecture, and performance.</p>
+      </div>
+    </div>
+    <div class="credits">
+  <p>2015 &copy; <a href="http://gbanis.com" title="George Banis, full stack web developer">George Banis</a> - All contents are <a href="http://creativecommons.org/licenses/by-nc/3.0/us/" target="_blank">Creative Commons</a> licensed.</p>
+  <p>This website was built with <i class="fa fa-heart"></i> in Boston.</p>
+  <p>
+  <!-- If a page has "menu: footer" it will displayed here, in the footer menu. -->
+    <a class="footer-menu" href="/affiliate-disclaimer/" title="Affiliate Disclaimer">Affiliate Disclaimer</a> | <a class="footer-menu" href="/privacy-policy/" title="Privacy Policy">Privacy Policy</a> | <a class="footer-menu rss-subscribe" href="/feed.xml">RSS Feed</a>
+  </p>
+</div>
+
+
+  </div>
+</footer>
+<script src="/scripts/header-hover-anchor.js"></script>
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/742405.js"></script>
+<!-- End of HubSpot Embed Code -->
+
+
+  </body>
+
+</html>

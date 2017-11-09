@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>How To Use Multiple Github Accounts On A Single Computer</title>
+<meta name="description" content="The easy steps to set up another Github account on your computer and use both seamlessly.">
+
+<meta name="keywords" content="github, git, ssh, software engineer, machine learning, artificial intelligence, spark, java, kafka, hbase, hadoop, big data, etl">
+
+<link rel="canonical" href="http://gbanis.com/blog/howto-use-multiple-github-accounts-single-computer">
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="http://gbanis.com/favicon.ico" />
+
+  <link rel="stylesheet" href="/css/main.css">
+
+  <!-- Google Fonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400|Anonymous+Pro|Bree+Serif' rel='stylesheet' type='text/css'>
+
+<!-- Fontawesome -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<!-- Google Analytics -->
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-19365634-4', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">George Banis</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        <!-- Adds all pages to the main navigation unless otherwise specified -->
+        <a class="page-link" href="/">Home</a> <a class="page-link" href="/about">About</a>
+        <a class="page-link" href="/resources/">Resources</a><a class="page-link" href="/contact">Contact</a>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">How To Use Multiple Github Accounts On A Single Computer</h1>
+
+    
+<!-- Post meta tags for individual post page -->
+<div class="post-meta">
+  <span class="post-date">Feb 21, 2015</span> • by <span class="post-author" itemscope itemtype="http://schema.org/Person"> <a href="https://plus.google.com/+GeorgeBanis" rel="publisher" itemprop="name">George Banis</a> </span>
+  
+  <p class="post-tags"><i class="fa fa-tags"></i>  <a href="/tags/github" title="View posts tagged with &quot;github&quot;"><u>github</u></a>,   <a href="/tags/git" title="View posts tagged with &quot;git&quot;"><u>git</u></a>,   <a href="/tags/ssh" title="View posts tagged with &quot;ssh&quot;"><u>ssh</u></a> </p>
+</div>
+
+
+
+
+
+
+
+  </header>
+
+  <article class="post-content">
+    <h2 id="tldr">TL;DR</h2>
+
+<p>This post will show you how to set up your computer to use multiple Github accounts on a single computer.</p>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<p>I am assuming you already have a Github account setup properly on your machine. For the sake of this demo let’s call it <code class="highlighter-rouge">default-acc</code>.</p>
+
+<h2 id="set-up-an-ssh-key">Set up an SSH Key</h2>
+
+<p>First we’ll need to create and register a new SSH key.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd ~/.ssh
+$ ssh-keygen -t rsa -C "your-key-name"
+</code></pre></div></div>
+
+<p>I like to name my keys in such way so I don’t forget what they are about. For this demo let’s just name it <code class="highlighter-rouge">second-github-account</code>.</p>
+
+<p>Next, add the key to SSH:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ssh-add ~/.ssh/second-github-account
+</code></pre></div></div>
+
+<h2 id="associate-the-new-key-with-github">Associate the New Key with Github</h2>
+
+<p>Now you need to associate this key with Github:</p>
+
+<ul>
+  <li>Go to <a href="https://github.com/settings/ssh">Github &gt; Settings &gt; SSH keys</a>.</li>
+  <li>Add SSH key</li>
+  <li>Give it a title. I’d name it <code class="highlighter-rouge">&lt;computer name&gt; &lt;key name&gt;</code>. For example <code class="highlighter-rouge">Macbook Air second-github-account</code>.</li>
+  <li>Paste in the <strong>public</strong> key. You can find this by typing <code class="highlighter-rouge">cat ~/.ssh/second-github-account.pub</code> in your terminal. (Don’t forget the <code class="highlighter-rouge">.pub</code> extension.)</li>
+</ul>
+
+<h2 id="create-a-config-file">Create a Config File</h2>
+
+<p>In order for Git to be able to distinguish which key it should use for each repo, you’ll need to setup a <code class="highlighter-rouge">config</code> file.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ touch ~/.ssh/config
+$ subl ~/.ssh/config
+</code></pre></div></div>
+
+<p>In there you’ll need to add your current/default account and the new one we just created:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Default GitHub Account
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/first-github-account
+
+#Second GitHub Account
+Host github-second
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/second-github-account
+</code></pre></div></div>
+
+<h2 id="using-the-new-github-account-with-git">Using the New Github Account with Git</h2>
+
+<p>Now, you’ll use git pretty much the same way you are used to. The only thing that is different is the way you refer to your remote repo.</p>
+
+<p>For example, if the SSH link Github provides you is <code class="highlighter-rouge">git@github.com:user-name/repo-name.git</code> you’ll need to change it to <code class="highlighter-rouge">git@github-second:user-name/repo-name.git</code>.</p>
+
+<p>Where did <code class="highlighter-rouge">git@github-second</code> come from?</p>
+
+<p>Check out the config file we just created. Under the second account we have <code class="highlighter-rouge">Host github-second</code> and <code class="highlighter-rouge">User git</code>. That’s it!</p>
+
+<p>Now, when you clone a repo or add a remote, the only thing you need to remember is to change <code class="highlighter-rouge">github.com</code> to your <code class="highlighter-rouge">github-second</code> host.</p>
+
+<p><code class="highlighter-rouge">$ git@github.com:&lt;username&gt;/&lt;repo&gt;.git</code> becomes <code class="highlighter-rouge">$ git clone git@github-second:&lt;username&gt;/&lt;repo&gt;.git</code></p>
+
+<p><code class="highlighter-rouge">$ git remote add origin git@github.com:&lt;username&gt;/&lt;repo&gt;.git</code> becomes <code class="highlighter-rouge">$ git remote add origin git@github-second:&lt;username&gt;/&lt;repo&gt;.git</code></p>
+
+  </article>
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <!-- <h2 class="footer-heading">George Banis</h2> -->
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>George Banis</li>
+          
+          <li>Tech Lead @ HubSpot</li>
+          
+          
+          <li>Boston, MA</li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <i class="fa fa-github"></i>
+            <a href="https://github.com/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <i class="fa fa-twitter"></i>
+            <a href="https://twitter.com/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <i class="fa fa-linkedin"></i>
+            <a href="https://linkedin.com/in/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="site-description">George Banis is the Tech Lead of the Machine Learning Data team at HubSpot. In this blog he talks about software engineering, machine learning, architecture, and performance.</p>
+      </div>
+    </div>
+    <div class="credits">
+  <p>2015 &copy; <a href="http://gbanis.com" title="George Banis, full stack web developer">George Banis</a> - All contents are <a href="http://creativecommons.org/licenses/by-nc/3.0/us/" target="_blank">Creative Commons</a> licensed.</p>
+  <p>This website was built with <i class="fa fa-heart"></i> in Boston.</p>
+  <p>
+  <!-- If a page has "menu: footer" it will displayed here, in the footer menu. -->
+    <a class="footer-menu" href="/affiliate-disclaimer/" title="Affiliate Disclaimer">Affiliate Disclaimer</a> | <a class="footer-menu" href="/privacy-policy/" title="Privacy Policy">Privacy Policy</a> | <a class="footer-menu rss-subscribe" href="/feed.xml">RSS Feed</a>
+  </p>
+</div>
+
+
+  </div>
+</footer>
+<script src="/scripts/header-hover-anchor.js"></script>
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/742405.js"></script>
+<!-- End of HubSpot Embed Code -->
+
+
+  </body>
+
+</html>

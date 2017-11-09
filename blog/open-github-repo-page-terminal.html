@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>Open Github Repo Page from the Terminal</title>
+<meta name="description" content="Open the Github page of your current repository using a bash command from your terminal.">
+
+<meta name="keywords" content="Github, terminal, bash, software engineer, machine learning, artificial intelligence, spark, java, kafka, hbase, hadoop, big data, etl">
+
+<link rel="canonical" href="http://gbanis.com/blog/open-github-repo-page-terminal">
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="http://gbanis.com/favicon.ico" />
+
+  <link rel="stylesheet" href="/css/main.css">
+
+  <!-- Google Fonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400|Anonymous+Pro|Bree+Serif' rel='stylesheet' type='text/css'>
+
+<!-- Fontawesome -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<!-- Google Analytics -->
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-19365634-4', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">George Banis</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        <!-- Adds all pages to the main navigation unless otherwise specified -->
+        <a class="page-link" href="/">Home</a> <a class="page-link" href="/about">About</a>
+        <a class="page-link" href="/resources/">Resources</a><a class="page-link" href="/contact">Contact</a>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Open Github Repo Page from the Terminal</h1>
+
+    
+<!-- Post meta tags for individual post page -->
+<div class="post-meta">
+  <span class="post-date">Jun 16, 2015</span> • by <span class="post-author" itemscope itemtype="http://schema.org/Person"> <a href="https://plus.google.com/+GeorgeBanis" rel="publisher" itemprop="name">George Banis</a> </span>
+  
+  <p class="post-tags"><i class="fa fa-tags"></i>  <a href="/tags/Github" title="View posts tagged with &quot;Github&quot;"><u>Github</u></a>,   <a href="/tags/terminal" title="View posts tagged with &quot;terminal&quot;"><u>terminal</u></a>,   <a href="/tags/bash" title="View posts tagged with &quot;bash&quot;"><u>bash</u></a> </p>
+</div>
+
+
+
+
+
+
+
+  </header>
+
+  <article class="post-content">
+    <p><img src="/assets/open-github-from-terminal.gif" alt="Open Github repository page from the terminal (gif)" /></p>
+
+<h2 id="tldr">TL;DR</h2>
+
+<p>You are working on your repository and quickly want to quickly open its Github page. So you type <code class="highlighter-rouge">gh</code> in your terminal and voila!</p>
+
+<h2 id="the-script-to-open-github-from-your-terminal">The Script to Open Github from your Terminal</h2>
+
+<p>To make this work, you need a script that grabs your repo’s <code class="highlighter-rouge">remote</code>, constructs the URL and opens it with your default browser.</p>
+
+<p>This is what the script looks like:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ~/.personal-scripts.sh</span>
+
+<span class="k">function </span>gh<span class="o">()</span> <span class="o">{</span>
+
+  <span class="c"># get your repository's remote origin url</span>
+  <span class="nv">remote</span><span class="o">=</span><span class="k">$(</span>git config <span class="nt">--local</span> <span class="nt">--get</span> remote.origin.url<span class="k">)</span>
+
+  <span class="c"># removes '.git' from the end of the remote</span>
+  <span class="nv">remote</span><span class="o">=</span><span class="k">${</span><span class="nv">remote</span><span class="p">%.git</span><span class="k">}</span>
+
+  <span class="c"># exit if there is no repository in the PWD</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$remote</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">""</span> <span class="o">]</span>
+    <span class="k">then
+     </span><span class="nb">echo</span> <span class="s2">"Not a git repository or no remote.origin.url set"</span>
+     <span class="nb">exit </span>1<span class="p">;</span>
+  <span class="k">fi</span>
+
+  <span class="c"># construct the Github url</span>
+  <span class="nv">url</span><span class="o">=</span><span class="k">${</span><span class="nv">remote</span><span class="p">/git\@github\.com\</span>:/https://github.com/<span class="k">}</span>
+
+  <span class="c"># open the url</span>
+  open <span class="nv">$url</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="where-does-this-script-go">Where Does This Script Go?</h2>
+
+<p>First, save the script in a file. I saved it in <code class="highlighter-rouge">~/.personal-scripts.sh</code></p>
+
+<p>Then, link it in you <code class="highlighter-rouge">.bash_profile</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ~/.bash_profile</span>
+...
+<span class="nb">source</span> ~/.personal-scripts.sh
+</code></pre></div></div>
+
+<p>Finally, reload your terminal window, or close it and open a new one.</p>
+
+<p>The command <code class="highlighter-rouge">gh</code> will now open the Github repo linked to your PWD.</p>
+
+<h2 id="how-to-change-the-command">How to Change the Command</h2>
+
+<p>If you want to use a different command you can simply change the name of the function:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># from</span>
+<span class="k">function </span>gh<span class="o">()</span> <span class="o">{</span>
+
+<span class="c"># to</span>
+<span class="k">function </span>preferredname<span class="o">()</span> <span class="o">{</span>
+</code></pre></div></div>
+
+<h2 id="adjusting-this-for-multiple-github-accounts">Adjusting this for Multiple Github Accounts</h2>
+
+<p>If you are using multiple Github accounts on the same machine, then the above script needs some small tweaking:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ~/.personal-scripts.sh</span>
+
+<span class="k">function </span>gh<span class="o">()</span> <span class="o">{</span>
+  <span class="nv">remote</span><span class="o">=</span><span class="k">$(</span>git config <span class="nt">--local</span> <span class="nt">--get</span> remote.origin.url<span class="k">)</span>
+  <span class="nv">remote</span><span class="o">=</span><span class="k">${</span><span class="nv">remote</span><span class="p">%.git</span><span class="k">}</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$remote</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">""</span> <span class="o">]</span>
+    <span class="k">then
+     </span><span class="nb">echo</span> <span class="s2">"Not a git repository or no remote.origin.url set"</span>
+     <span class="nb">exit </span>1<span class="p">;</span>
+  <span class="k">fi</span>
+
+  <span class="c"># get the user email associated with the current repo</span>
+  <span class="nv">email</span><span class="o">=</span><span class="k">$(</span>git config <span class="nt">--local</span> <span class="nt">--get</span> user.email<span class="k">)</span>
+
+  <span class="c"># use a conditional to construct the correct Github url</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$email</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"other@user.com"</span> <span class="o">]</span>
+  <span class="k">then</span>
+
+    <span class="c"># get the second account's Github host from ~/.ssh/config</span>
+    <span class="c"># for example, if the other account's Github host is `github.com-other`</span>
+    <span class="nv">url</span><span class="o">=</span><span class="k">${</span><span class="nv">remote</span><span class="p">/git\@github\.com-other\</span>:/https://github.com/<span class="k">}</span>
+  <span class="k">else</span>
+
+    <span class="c"># for the default host</span>
+    <span class="nv">url</span><span class="o">=</span><span class="k">${</span><span class="nv">remote</span><span class="p">/git\@github\.com\</span>:/https://github.com/<span class="k">}</span>
+  <span class="k">fi</span>
+
+  <span class="c"># open the url</span>
+  open <span class="nv">$url</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+  </article>
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <!-- <h2 class="footer-heading">George Banis</h2> -->
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>George Banis</li>
+          
+          <li>Tech Lead @ HubSpot</li>
+          
+          
+          <li>Boston, MA</li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <i class="fa fa-github"></i>
+            <a href="https://github.com/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <i class="fa fa-twitter"></i>
+            <a href="https://twitter.com/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <i class="fa fa-linkedin"></i>
+            <a href="https://linkedin.com/in/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="site-description">George Banis is the Tech Lead of the Machine Learning Data team at HubSpot. In this blog he talks about software engineering, machine learning, architecture, and performance.</p>
+      </div>
+    </div>
+    <div class="credits">
+  <p>2015 &copy; <a href="http://gbanis.com" title="George Banis, full stack web developer">George Banis</a> - All contents are <a href="http://creativecommons.org/licenses/by-nc/3.0/us/" target="_blank">Creative Commons</a> licensed.</p>
+  <p>This website was built with <i class="fa fa-heart"></i> in Boston.</p>
+  <p>
+  <!-- If a page has "menu: footer" it will displayed here, in the footer menu. -->
+    <a class="footer-menu" href="/affiliate-disclaimer/" title="Affiliate Disclaimer">Affiliate Disclaimer</a> | <a class="footer-menu" href="/privacy-policy/" title="Privacy Policy">Privacy Policy</a> | <a class="footer-menu rss-subscribe" href="/feed.xml">RSS Feed</a>
+  </p>
+</div>
+
+
+  </div>
+</footer>
+<script src="/scripts/header-hover-anchor.js"></script>
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/742405.js"></script>
+<!-- End of HubSpot Embed Code -->
+
+
+  </body>
+
+</html>

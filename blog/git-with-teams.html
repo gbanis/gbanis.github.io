@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>Git with Teams: A Sample Git Workflow</title>
+<meta name="description" content="A collection of usefull Git commands and workflows for when you collaborate with a team.">
+
+<meta name="keywords" content="git, github, heroku, software engineer, machine learning, artificial intelligence, spark, java, kafka, hbase, hadoop, big data, etl">
+
+<link rel="canonical" href="http://gbanis.com/blog/git-with-teams">
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="http://gbanis.com/favicon.ico" />
+
+  <link rel="stylesheet" href="/css/main.css">
+
+  <!-- Google Fonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400|Anonymous+Pro|Bree+Serif' rel='stylesheet' type='text/css'>
+
+<!-- Fontawesome -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<!-- Google Analytics -->
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-19365634-4', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">George Banis</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        <!-- Adds all pages to the main navigation unless otherwise specified -->
+        <a class="page-link" href="/">Home</a> <a class="page-link" href="/about">About</a>
+        <a class="page-link" href="/resources/">Resources</a><a class="page-link" href="/contact">Contact</a>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Git with Teams: A Sample Git Workflow</h1>
+
+    
+<!-- Post meta tags for individual post page -->
+<div class="post-meta">
+  <span class="post-date">Nov 8, 2014</span> • by <span class="post-author" itemscope itemtype="http://schema.org/Person"> <a href="https://plus.google.com/+GeorgeBanis" rel="publisher" itemprop="name">George Banis</a> </span>
+  
+  <p class="post-tags"><i class="fa fa-tags"></i>  <a href="/tags/git" title="View posts tagged with &quot;git&quot;"><u>git</u></a>,   <a href="/tags/github" title="View posts tagged with &quot;github&quot;"><u>github</u></a>,   <a href="/tags/heroku" title="View posts tagged with &quot;heroku&quot;"><u>heroku</u></a> </p>
+</div>
+
+
+
+
+
+
+
+  </header>
+
+  <article class="post-content">
+    <p>Here’s one of the many ways you can use Git and GitHub to manage your team project.</p>
+
+<h2 id="typical-scenario">Typical Scenario</h2>
+
+<h3 id="setting-up-the-repos">Setting Up The Repos</h3>
+<ul>
+  <li>Admin creates a <strong>new organization</strong> on Github</li>
+  <li>Admin creates the <code class="highlighter-rouge">upstream</code> repo with a readme file</li>
+  <li>Team members <code class="highlighter-rouge">fork</code> the repo (this is the individual team member’s <code class="highlighter-rouge">origin</code> repo)</li>
+  <li>Team members <code class="highlighter-rouge">$ git clone &lt;url&gt;</code> the repo</li>
+  <li>Team members <code class="highlighter-rouge">$ git remote add upstream &lt;url&gt;</code> the origin repo</li>
+</ul>
+
+<h3 id="pushing-from-a-local-branch-to-a-different-remote-branch">Pushing from A Local Branch to A Different Remote Branch</h3>
+
+<p><code class="highlighter-rouge">$ git push origin &lt;local-branch&gt;:&lt;remote-branch&gt;</code></p>
+
+<h3 id="making-changes--submitting-updates">Making Changes &amp; Submitting Updates</h3>
+
+<ul>
+  <li>Create a new branch <code class="highlighter-rouge">$ git checkout -b new_feature</code></li>
+  <li>Make updates</li>
+  <li><code class="highlighter-rouge">$ git add .</code></li>
+  <li><code class="highlighter-rouge">$ git commit -m "Issue #: Issue Description"</code></li>
+  <li><code class="highlighter-rouge">$ git push origin new_features</code></li>
+  <li>Make a <code class="highlighter-rouge">pull request</code> on GitHub</li>
+  <li>Admin reviews the code and <code class="highlighter-rouge">merge</code> the pull request</li>
+  <li>All team members <code class="highlighter-rouge">$ git pull upstream master</code></li>
+</ul>
+
+<blockquote>
+  <p>Before anyone’s <code class="highlighter-rouge">pull request</code> can be accepted, it must have the latest accepted code from the <code class="highlighter-rouge">upstream</code> repo.</p>
+</blockquote>
+
+<h3 id="updating-your-fork">Updating your Fork</h3>
+
+<ul>
+  <li>Fetch changes: <code class="highlighter-rouge">$ git fetch upstream</code></li>
+  <li>Merge them into master: <code class="highlighter-rouge">$ git merge upstream/master master</code></li>
+  <li>Push them to your remote: <code class="highlighter-rouge">$ git push origin master</code></li>
+</ul>
+
+<h2 id="other-scenarios">Other Scenarios</h2>
+
+<h3 id="git-pull-vs-git-merge">Git Pull VS. Git Merge</h3>
+
+<p><code class="highlighter-rouge">git pull</code> = <code class="highlighter-rouge">git fetch</code> + <code class="highlighter-rouge">git merge</code></p>
+
+<h3 id="working-with-remote-branches">Working with Remote Branches</h3>
+
+<ul>
+  <li>Create and checkout local branch <code class="highlighter-rouge">$ git checkout -b branch_name</code></li>
+  <li>Link to remote branch <code class="highlighter-rouge">$ git push origin branch_name</code></li>
+  <li>Make updates, <code class="highlighter-rouge">stage</code> and <code class="highlighter-rouge">commit</code> them</li>
+  <li>Push them to remote branch <code class="highlighter-rouge">$ git push</code></li>
+  <li>Other team member pulls <code class="highlighter-rouge">$ git pull</code></li>
+  <li>List all remote branches <code class="highlighter-rouge">$ git branch -r</code></li>
+  <li>Checkout the branch <code class="highlighter-rouge">$ git checkout branch_name</code></li>
+  <li>Make changes, <code class="highlighter-rouge">stage</code>, <code class="highlighter-rouge">commit</code>, and <code class="highlighter-rouge">push</code> them</li>
+  <li>List remote branches <code class="highlighter-rouge">$ git remote show origin</code></li>
+  <li>Delete the remote branch <code class="highlighter-rouge">$ git push origin :branch_name</code></li>
+  <li>Delete the local branch <code class="highlighter-rouge">$ git branch -d branch_name</code>
+    <ul>
+      <li>or force delete <code class="highlighter-rouge">$ git branch -D branch_name</code></li>
+    </ul>
+  </li>
+  <li>Clean up all stale remote branches referenced locally <code class="highlighter-rouge">$ git remote prune origin</code></li>
+  <li>To see all remote info (branches, etc.) <code class="highlighter-rouge">$ git remote show origin</code></li>
+</ul>
+
+<h3 id="deploying-a-branch-to-heroku-staging-server">Deploying a Branch to Heroku Staging Server</h3>
+
+<ul>
+  <li>Create a heroku staging environment <code class="highlighter-rouge">$ heroku create --remote heroku-staging</code></li>
+  <li>Deploy the <code class="highlighter-rouge">test_branch</code>: <code class="highlighter-rouge">$ git push heroku-staging test_branch:master</code></li>
+</ul>
+
+<blockquote>
+  <p>Don’t forget: You’ll need to run all the necessary <code class="highlighter-rouge">rake</code> commands and install the <code class="highlighter-rouge">env variables</code> anew on the staging server. To do that you’ll need to append <code class="highlighter-rouge">--remote heroku-staging</code> after each of those commands.</p>
+</blockquote>
+
+<h3 id="tagging-and-release-versioning">Tagging and Release Versioning</h3>
+
+<ul>
+  <li>To list tags <code class="highlighter-rouge">$ git tag</code></li>
+  <li>To go back to that tag <code class="highlighter-rouge">$ git checkout &lt;tagname&gt;</code></li>
+  <li>To add new tag <code class="highlighter-rouge">$ git tag -a v0.0.1 -m "Version 0.0.1"</code></li>
+  <li>To push tags to remote repo <code class="highlighter-rouge">$ git push --tags</code></li>
+</ul>
+
+<h3 id="rebasing">Rebasing</h3>
+
+<h4 id="initial-state">Initial State</h4>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># `master` has commited updates</span>
+<span class="c1"># `branch` also has commited updates</span>
+
+           <span class="o">|</span>  <span class="o">|</span>
+<span class="n">master</span> <span class="o">-&gt;</span>  <span class="no">X</span>  <span class="no">Y</span> <span class="o">&lt;-</span> <span class="n">branch</span>
+           <span class="o">|</span>  <span class="o">|</span>
+           <span class="no">X</span>  <span class="no">Y</span>
+           <span class="o">|</span> <span class="sr">/
+           O
+</span></code></pre></div></div>
+
+<h4 id="run-rebase">Run Rebase</h4>
+
+<p>Checkout branch and run rebase:</p>
+
+<p><code class="highlighter-rouge">$ git checkout branch</code></p>
+
+<p><code class="highlighter-rouge">$ git rebase master</code></p>
+
+<p>Which does the following:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># existing commits are moved to temp location</span>
+
+<span class="c1"># then, `master` commits are moved to the current branch</span>
+
+<span class="no">X</span>  <span class="no">X</span>    <span class="no">Y</span>
+<span class="o">|</span>  <span class="o">|</span>    <span class="o">|</span>
+<span class="no">X</span>  <span class="no">X</span>    <span class="no">Y</span>
+<span class="o">|</span> <span class="sr">/
+O
+
+# `branch` commits are moved on top of `master` commits
+
+   Y
+   |
+   Y
+   |
+X  X
+|  |
+X  X
+| /</span>
+<span class="no">O</span>
+
+</code></pre></div></div>
+
+<h4 id="merge-updated-branch-with-master">Merge Updated Branch with Master</h4>
+
+<p>Checkout master and merge the branch with it:</p>
+
+<p><code class="highlighter-rouge">$ git checkout master</code></p>
+
+<p><code class="highlighter-rouge">$ git merge branch</code></p>
+
+<p>Which does the following:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="no">Y</span>  <span class="no">Y</span>
+<span class="o">|</span>  <span class="o">|</span>
+<span class="no">Y</span>  <span class="no">Y</span>
+<span class="o">|</span>  <span class="o">|</span>
+<span class="no">X</span>  <span class="no">X</span>
+<span class="o">|</span>  <span class="o">|</span>
+<span class="no">X</span>  <span class="no">X</span>
+<span class="o">|</span> <span class="sr">/
+O
+
+</span></code></pre></div></div>
+
+<p>You can then add a <code class="highlighter-rouge">tag</code> and/or <code class="highlighter-rouge">delete</code> the branch.</p>
+
+<h3 id="simple-fetch-and-rebase-workflow">Simple Fetch and Rebase Workflow</h3>
+
+<p>To update your local <code class="highlighter-rouge">master</code> with the remote <code class="highlighter-rouge">origin/master</code>:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">$ git fetch</code></li>
+  <li><code class="highlighter-rouge">$ git rebase</code></li>
+  <li>If you have conflicts, you can
+    <ul>
+      <li>Resolve them in the editor and run <code class="highlighter-rouge">$ git rebase --continue</code></li>
+      <li>Skip the patch <code class="highlighter-rouge">$ git rebase --skip</code></li>
+      <li>Abort rebasing <code class="highlighter-rouge">$ git rebase --abort</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="squashing-unwanted-commits-with-rebase">Squashing Unwanted Commits with Rebase</h3>
+
+<blockquote>
+  <p><strong>Caution</strong>: only do this on commits that haven’t been pushed to an external/online repo.</p>
+</blockquote>
+
+<p><code class="highlighter-rouge">$ git rebase -i &lt;after-this-SHA&gt;</code> (for interactive pick/squash)</p>
+
+<p>or</p>
+
+<p><code class="highlighter-rouge">$ git reset --soft &lt;after-this-SHA&gt;</code> (to remove commit messages)</p>
+
+<h3 id="cherry-picking">Cherry Picking</h3>
+
+<h4 id="why-use-cherry-picking">Why Use Cherry Picking</h4>
+
+<p>To <em>selectively</em> bring the functionality of a single commit to your working branch from another branch, when that commit is between other commits and you dont want to merge/rebase the entire branch to your working branch.</p>
+
+<h4 id="how-to-use-cherry-pick">How to Use Cherry Pick</h4>
+
+<p><code class="highlighter-rouge">$ git cherry-pick &lt;commit-we-want-SHA&gt;</code></p>
+
+<p>To cherry pick and <strong>edit the commit msg</strong>:</p>
+
+<p><code class="highlighter-rouge">$ git cherry-pick --edit &lt;commit-we-want-SHA&gt;</code></p>
+
+<p>To cherry pick <strong>multiple commits</strong> and without committing:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git cherry-pick --no-commit &lt;SHA-1&gt; &lt;SHA-2&gt;
+$ git add .
+$ git commit -m "Message"
+</code></pre></div></div>
+
+<p>To cherry pick a public/online commit and keep the original commit’s info (SHA/Auhtor):</p>
+
+<p><code class="highlighter-rouge">$ git cherry-pick --signoff &lt;SHA&gt;</code></p>
+
+
+  </article>
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <!-- <h2 class="footer-heading">George Banis</h2> -->
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>George Banis</li>
+          
+          <li>Tech Lead @ HubSpot</li>
+          
+          
+          <li>Boston, MA</li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <i class="fa fa-github"></i>
+            <a href="https://github.com/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <i class="fa fa-twitter"></i>
+            <a href="https://twitter.com/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <i class="fa fa-linkedin"></i>
+            <a href="https://linkedin.com/in/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="site-description">George Banis is the Tech Lead of the Machine Learning Data team at HubSpot. In this blog he talks about software engineering, machine learning, architecture, and performance.</p>
+      </div>
+    </div>
+    <div class="credits">
+  <p>2015 &copy; <a href="http://gbanis.com" title="George Banis, full stack web developer">George Banis</a> - All contents are <a href="http://creativecommons.org/licenses/by-nc/3.0/us/" target="_blank">Creative Commons</a> licensed.</p>
+  <p>This website was built with <i class="fa fa-heart"></i> in Boston.</p>
+  <p>
+  <!-- If a page has "menu: footer" it will displayed here, in the footer menu. -->
+    <a class="footer-menu" href="/affiliate-disclaimer/" title="Affiliate Disclaimer">Affiliate Disclaimer</a> | <a class="footer-menu" href="/privacy-policy/" title="Privacy Policy">Privacy Policy</a> | <a class="footer-menu rss-subscribe" href="/feed.xml">RSS Feed</a>
+  </p>
+</div>
+
+
+  </div>
+</footer>
+<script src="/scripts/header-hover-anchor.js"></script>
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/742405.js"></script>
+<!-- End of HubSpot Embed Code -->
+
+
+  </body>
+
+</html>

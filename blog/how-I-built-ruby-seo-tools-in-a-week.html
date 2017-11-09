@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>How I Built Ruby SEO Tools in a Week</title>
+<meta name="description" content="Find out how I built Ruby SEO Tools, a fully functional web application, in under 50 hours.">
+
+<meta name="keywords" content="hackathon, planning, project management, software engineer, machine learning, artificial intelligence, spark, java, kafka, hbase, hadoop, big data, etl">
+
+<link rel="canonical" href="http://gbanis.com/blog/how-I-built-ruby-seo-tools-in-a-week">
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="http://gbanis.com/favicon.ico" />
+
+  <link rel="stylesheet" href="/css/main.css">
+
+  <!-- Google Fonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400|Anonymous+Pro|Bree+Serif' rel='stylesheet' type='text/css'>
+
+<!-- Fontawesome -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<!-- Google Analytics -->
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-19365634-4', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">George Banis</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        <!-- Adds all pages to the main navigation unless otherwise specified -->
+        <a class="page-link" href="/">Home</a> <a class="page-link" href="/about">About</a>
+        <a class="page-link" href="/resources/">Resources</a><a class="page-link" href="/contact">Contact</a>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">How I Built Ruby SEO Tools in a Week</h1>
+
+    
+<!-- Post meta tags for individual post page -->
+<div class="post-meta">
+  <span class="post-date">Jan 8, 2015</span> • by <span class="post-author" itemscope itemtype="http://schema.org/Person"> <a href="https://plus.google.com/+GeorgeBanis" rel="publisher" itemprop="name">George Banis</a> </span>
+  
+  <p class="post-tags"><i class="fa fa-tags"></i>  <a href="/tags/hackathon" title="View posts tagged with &quot;hackathon&quot;"><u>hackathon</u></a>,   <a href="/tags/planning" title="View posts tagged with &quot;planning&quot;"><u>planning</u></a>,   <a href="/tags/project management" title="View posts tagged with &quot;project management&quot;"><u>project management</u></a> </p>
+</div>
+
+
+
+
+
+
+
+  </header>
+
+  <article class="post-content">
+    <h2 id="tldr">TL;DR</h2>
+
+<p>Not long ago I decided to combine everything I know about SEO with my web development skills into a web application. This is how <a href="http://rubyseotools.com">Ruby SEO Tools</a> was born, a tool that helps marketers analyze how well their blog posts are optimized for SEO.</p>
+
+<p>The first version of Ruby SEO Tools was built in just a handful of days—it could very well be the product of a hackathon. And since many friends of mine want to participate in a hackathon and aren’t sure <em>how</em> to get organized, I decided I’d document my process in hopes that you could get an idea or two.</p>
+
+<p>Keep reading to find out how I built a fully functional web application in under 50 hours.</p>
+
+<h2 id="first-lets-set-a-few-things-straight">First, Lets Set a Few Things Straight…</h2>
+
+<ol>
+  <li>Don’t expect to produce an enterprise-level, feature-rich application in just a few hours.</li>
+  <li>Brainstorm as many features as you wish. Then select a single feature and implement it.</li>
+  <li>You should have a plan of action. If you don’t you’ll run in circles.</li>
+  <li>If you have a team, it helps if you all have different skills.</li>
+  <li>Try something out of the ordinary and have fun.</li>
+</ol>
+
+<p>Now that we got these things out of the way, here’s how I built the first version of <a href="rubyseotools.com">rubyseotools.com</a></p>
+
+<h2 id="before-starting-to-code">Before Starting to Code</h2>
+
+<h3 id="inspiration-for-the-project">Inspiration for the Project</h3>
+
+<p>Coming up with an idea for your project is obviously the first thing on the list.</p>
+
+<p>I had a few things in mind that I wanted to build but obviously when you are about to invest a good amout of time on something you want to make it count.</p>
+
+<p>It obviously helps if:</p>
+
+<ul>
+  <li>You have experience in the topic</li>
+  <li>You know that there is pain involved and that you could aleviate some of that pain</li>
+</ul>
+
+<p>Once I finalized the core idea, I started taking notes. I brainstormed, talked with friends and colleagues and put all my ideas (good and bad) in a document. This is not the time to decide whether they are good or bad. My main goal was to collect a good amount of ideas.</p>
+
+<h3 id="the-project-plan">The “Project Plan”</h3>
+
+<p>I created a Google Doc and put in it all the following:</p>
+
+<h4 id="about">About</h4>
+
+<p>Here’s where I listed the name, logo, url and description of the project.</p>
+
+<h4 id="features">Features</h4>
+
+<p>In this section I went wild, literally. I wrote down as many ideas and features as I could.</p>
+
+<p>Quickly I started realizing what my starting point should be:</p>
+
+<blockquote>
+  <p>A tool where a marketer can provide the URL of his/her blog post and get a report with SEO recommendations.</p>
+</blockquote>
+
+<h4 id="user-experience">User Experience</h4>
+
+<p>With the core idea in place, I started creating some basic user stories as well as the user flow from when a visitor arrives to the home page until they are done with the tool.</p>
+
+<h4 id="seo-performance-metrics">SEO Performance Metrics</h4>
+
+<p>By now, the idea has taken some shape and form. At this moment, I had to decide which metrics I should implement in this first version.</p>
+
+<p>I had two main criteria:</p>
+
+<ol>
+  <li>How much value is the end-user going to get from the metric</li>
+  <li>How easy is it to implement this metric</li>
+</ol>
+
+<p>With this in mind I gathered a set of about 15 metrics that I knew I could develop within a few quick hours. This was great starting point that I could then use to build on.</p>
+
+<h4 id="database-architecture">Database Architecture</h4>
+
+<p>Nothing out of the ordinary here. With all the information in hand I built my models. It’s always a good idea to start simple and add complexity if necessary.</p>
+
+<h4 id="technologies-i-want-to-use">Technologies I Want to Use</h4>
+
+<p>Pretty obvious but I made a list of all the things I wanted to implement:</p>
+
+<ul>
+  <li>Rails API for my back-end</li>
+  <li>Angular.js for my front-end</li>
+  <li>RSpec to test my business logic and models</li>
+  <li>Code Climate for code review and test coverage</li>
+  <li>Gemnasium to check dependencies</li>
+  <li>Codeship for continuous integration</li>
+  <li>Heroku to host Rails</li>
+  <li>Github to host HTML/CSS/JS</li>
+  <li>Nokogiri for HTML parsing</li>
+</ul>
+
+<h2 id="developing-the-application">Developing the Application</h2>
+
+<h3 id="service-oriented-architecture">Service Oriented Architecture</h3>
+
+<p>Naturally, the first thing once you have everything ready is setting up your environment and initializing your project.</p>
+
+<p>For this project I used the following architecture:</p>
+
+<p><img src="/assets/ruby-seo-tools-architecture.svg" alt="Ruby SEO Tools - Architecture" /></p>
+
+<p>I knew I would have my front and back ends separate so two different local repos were in order.</p>
+
+<p>These repos were then linked to their respective Github repos.</p>
+
+<p>Back-end, I linked my GH repository to Gemnasium to make sure my gem dependencies were in good order. I set up Codeship to pull from Github, run the tests and push to Heroku if everything passed. And of course set up New Relic to monitor my Heroku server.</p>
+
+<p>Front-end, I didn’t write tests so I simply tested locally and pushed to a gh-pages branch when everything looked good. I added Google Analytics to keep an eye on traffic and got a custom domain which I routed through Cloudflare DNS. And of course, Angular chats with Rails through a RESTful API using AJAX.</p>
+
+<h3 id="setting-up-environments">Setting Up Environments</h3>
+
+<p>You can start seeing how everything is coming along nicely.</p>
+
+<p>Two folders, one for each end. In one, I initialized a Rails API application running Postgres. In the other, I created the boilerplate files and folders, including Angular and Bootstrap through Bower.</p>
+
+<h3 id="defining-end-points-for-my-api">Defining End-Points for my API</h3>
+
+<p>For each report that the end-user would like to generate I wanted to make a single call to the Rails server and get a pass response with the report data or a fail response.</p>
+
+<p>Simple enough, right? That’s my goal, given the limited amount of time.</p>
+
+<h3 id="developing-the-back-end">Developing the Back-end</h3>
+
+<p>Here’s where the real coding begins.</p>
+
+<p>Even though I had limited amount of time in hand I still wanted to do TDD so I decided to test my business logic and selectively test my controller and models.</p>
+
+<p>So, as you can imagine I started writing tests for my SEO analysis and built a module that hosts all the methods that do that.</p>
+
+<p>Once my server was consistently delivering a RESTful endpoint, I pushed it on Github and soon had it live on Heroku via Codeship.</p>
+
+<p>Finally, I set a custom subdomain for my API server, api.rubyseotools.com, and now I was ready to start building my front-end.</p>
+
+<h3 id="workin-on-the-front-end">Workin on the Front-end</h3>
+
+<p>I wanted to try Angular Material but after spending a few hours on it, I realized that it would be more trouble than I thought.</p>
+
+<p>So, I went with a combination of Angular.js and Boostrap which I was familiar with and could start developing immediately.</p>
+
+<p>Nothing too special here, I put together a factory to communicate with my API and then designed a simple front-end UI that displays the information.</p>
+
+<h2 id="getting-past-v001">Getting Past v0.0.1</h2>
+
+<p>With a first functioning version of my application, I started implementing more SEO metrics using the following process:</p>
+
+<ul>
+  <li>Pick the metric</li>
+  <li>Write the tests</li>
+  <li>Write the code that makes the tests pass</li>
+  <li>Expose it to the API</li>
+  <li>Pull it and display it on the front end</li>
+  <li>Make sure everything looks good and tests pass</li>
+  <li>Push to production</li>
+</ul>
+
+<h2 id="polishing-and-marketing">Polishing and Marketing</h2>
+
+<p>I consider this step is very important so I gave myself enough time to polish the front-end and make it look great everywhere (yep, I did do some cross-browser and cross-device testing).</p>
+
+<p>I also took some time writing a few nice words and making gifs so that visitors have a delightful experience when they visit for the first time and know what to do when they get there.</p>
+
+<h2 id="final-thoughts">Final Thoughts</h2>
+
+<p>As you see, planning is equally as important as developing in my eyes. If you have a roadmap you’ll have a <em>significantly</em> easier time building your project.</p>
+
+<p>Also, many think that TDD takes up a lot of time but I really feel like it’s much faster than manually testing everything all the time when you can simply run the tests.</p>
+
+<p>Finally, hackathons and small projects like this one are lots of fun. So no matter what happens, make sure you enjoy yourself!</p>
+
+<p>I hope this helps and would love to hear what your thoughts are in the commends below.</p>
+
+
+  </article>
+  
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <!-- <h2 class="footer-heading">George Banis</h2> -->
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>George Banis</li>
+          
+          <li>Tech Lead @ HubSpot</li>
+          
+          
+          <li>Boston, MA</li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <i class="fa fa-github"></i>
+            <a href="https://github.com/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <i class="fa fa-twitter"></i>
+            <a href="https://twitter.com/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <i class="fa fa-linkedin"></i>
+            <a href="https://linkedin.com/in/gbanis">
+              <span class="username">gbanis</span>
+            </a>
+          </li>
+          
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="site-description">George Banis is the Tech Lead of the Machine Learning Data team at HubSpot. In this blog he talks about software engineering, machine learning, architecture, and performance.</p>
+      </div>
+    </div>
+    <div class="credits">
+  <p>2015 &copy; <a href="http://gbanis.com" title="George Banis, full stack web developer">George Banis</a> - All contents are <a href="http://creativecommons.org/licenses/by-nc/3.0/us/" target="_blank">Creative Commons</a> licensed.</p>
+  <p>This website was built with <i class="fa fa-heart"></i> in Boston.</p>
+  <p>
+  <!-- If a page has "menu: footer" it will displayed here, in the footer menu. -->
+    <a class="footer-menu" href="/affiliate-disclaimer/" title="Affiliate Disclaimer">Affiliate Disclaimer</a> | <a class="footer-menu" href="/privacy-policy/" title="Privacy Policy">Privacy Policy</a> | <a class="footer-menu rss-subscribe" href="/feed.xml">RSS Feed</a>
+  </p>
+</div>
+
+
+  </div>
+</footer>
+<script src="/scripts/header-hover-anchor.js"></script>
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/742405.js"></script>
+<!-- End of HubSpot Embed Code -->
+
+
+  </body>
+
+</html>

@@ -1,0 +1,1201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>George Banis</title>
+    <description>George Banis is the Tech Lead of the Machine Learning Data team at HubSpot. In this blog he talks about software engineering, machine learning, architecture, and performance.</description>
+    <link>http://gbanis.com/</link>
+    <atom:link href="http://gbanis.com/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Thu, 09 Nov 2017 17:36:23 -0500</pubDate>
+    <lastBuildDate>Thu, 09 Nov 2017 17:36:23 -0500</lastBuildDate>
+    <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>[Slides] Software Engineering Workflow</title>
+        <description>&lt;section data-markdown&gt;
+  &lt;script type=&quot;text/template&quot;&gt;
+    ### Software Engineering Workflow
+
+    BY [GEORGE BANIS](http://gbanis.com)
+  &lt;/script&gt;
+&lt;/section&gt;
+&lt;section data-markdown&gt;
+  &lt;script type=&quot;text/template&quot;&gt;
+    ## Tools
+
+    - Git
+    - Github
+    - Trello
+  &lt;/script&gt;
+&lt;/section&gt;
+&lt;section data-markdown&gt;
+  &lt;script type=&quot;text/template&quot;&gt;
+    ## Trello Lists
+
+    1. Backlog
+    1. Next Up
+    1. In Development
+    1. In Code Review
+    1. To Release
+    1. Live
+    1. Abandoned
+  &lt;/script&gt;
+&lt;/section&gt;
+&lt;section data-markdown&gt;
+  &lt;script type=&quot;text/template&quot;&gt;
+    ## 1. Backlog
+
+    - Add new stories and bugs
+    - Arrange by order of importance
+  &lt;/script&gt;
+&lt;/section&gt;
+&lt;section data-markdown&gt;
+  &lt;script type=&quot;text/template&quot;&gt;
+    ## 2. Next Up
+
+    - Next stories to be  implemented
+    - Move stories from Backlog to this list
+    - Keep 2-3 stories PTM *(per team member)*
+    - Update it once a day
+  &lt;/script&gt;
+&lt;/section&gt;
+&lt;section data-markdown&gt;
+  &lt;script type=&quot;text/template&quot;&gt;
+    ## 3. In Development
+
+    - Only 1 card PTM in Development
+    - Create a new branch
+    - Work on the branch
+    - Keep the branch fresh (merge `master`)
+    - Run the tests
+    - Move to Code Review
+  &lt;/script&gt;
+&lt;/section&gt;
+&lt;section data-markdown&gt;
+  &lt;script type=&quot;text/template&quot;&gt;
+    ## 4. In Code Review
+
+    - Open the PR in Github
+    - Look at the diffs
+    - Pull the branch and test it locally
+    - Be very thorough
+    - If all is good, comment &quot;LGTM&quot;
+  &lt;/script&gt;
+&lt;/section&gt;
+&lt;section data-markdown&gt;
+  &lt;script type=&quot;text/template&quot;&gt;
+    ## 5. To Release
+
+    - Merge to master and:
+    - Run your build suite
+    - Run your continuous integration suite
+    - Deploy to staging
+    - Deploy to production
+    - Wait for complementary stories
+  &lt;/script&gt;
+&lt;/section&gt;
+&lt;section data-markdown&gt;
+  &lt;script type=&quot;text/template&quot;&gt;
+    ## 6. Live
+
+    - Congrats! You made it!
+    - Now go grab the next story from Next Up
+  &lt;/script&gt;
+&lt;/section&gt;
+&lt;section data-markdown&gt;
+  &lt;script type=&quot;text/template&quot;&gt;
+    ## 7. Abandoned
+
+    - Duplicate stories
+    - Features that won't be implemented
+    - Erroneous entries
+  &lt;/script&gt;
+&lt;/section&gt;
+&lt;section data-markdown&gt;
+  &lt;script type=&quot;text/template&quot;&gt;
+    ### Get the Trello Board Template
+
+    [https://trello.com/b/aKD2qNE3](https://trello.com/b/aKD2qNE3)
+  &lt;/script&gt;
+&lt;/section&gt;
+
+
+</description>
+        <pubDate>Mon, 22 Jun 2015 08:00:00 -0400</pubDate>
+        <link>http://gbanis.com/blog/slides-software-engineering-workflow</link>
+        <guid isPermaLink="true">http://gbanis.com/blog/slides-software-engineering-workflow</guid>
+        
+        <category>slides</category>
+        
+        <category>software engineering</category>
+        
+        <category>workflow</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Open Github Repo Page from the Terminal</title>
+        <description>&lt;p&gt;&lt;img src=&quot;/assets/open-github-from-terminal.gif&quot; alt=&quot;Open Github repository page from the terminal (gif)&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
+
+&lt;p&gt;You are working on your repository and quickly want to quickly open its Github page. So you type &lt;code class=&quot;highlighter-rouge&quot;&gt;gh&lt;/code&gt; in your terminal and voila!&lt;/p&gt;
+
+&lt;h2 id=&quot;the-script-to-open-github-from-your-terminal&quot;&gt;The Script to Open Github from your Terminal&lt;/h2&gt;
+
+&lt;p&gt;To make this work, you need a script that grabs your repo’s &lt;code class=&quot;highlighter-rouge&quot;&gt;remote&lt;/code&gt;, constructs the URL and opens it with your default browser.&lt;/p&gt;
+
+&lt;p&gt;This is what the script looks like:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# ~/.personal-scripts.sh&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;gh&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;c&quot;&gt;# get your repository's remote origin url&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;remote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;git config &lt;span class=&quot;nt&quot;&gt;--local&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--get&lt;/span&gt; remote.origin.url&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+
+  &lt;span class=&quot;c&quot;&gt;# removes '.git' from the end of the remote&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;remote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;remote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;%.git&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;c&quot;&gt;# exit if there is no repository in the PWD&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$remote&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;then
+     &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Not a git repository or no remote.origin.url set&quot;&lt;/span&gt;
+     &lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;1&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+
+  &lt;span class=&quot;c&quot;&gt;# construct the Github url&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;remote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;/git\@github\.com\&lt;/span&gt;:/https://github.com/&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;c&quot;&gt;# open the url&lt;/span&gt;
+  open &lt;span class=&quot;nv&quot;&gt;$url&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;where-does-this-script-go&quot;&gt;Where Does This Script Go?&lt;/h2&gt;
+
+&lt;p&gt;First, save the script in a file. I saved it in &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.personal-scripts.sh&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Then, link it in you &lt;code class=&quot;highlighter-rouge&quot;&gt;.bash_profile&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# ~/.bash_profile&lt;/span&gt;
+...
+&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.personal-scripts.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Finally, reload your terminal window, or close it and open a new one.&lt;/p&gt;
+
+&lt;p&gt;The command &lt;code class=&quot;highlighter-rouge&quot;&gt;gh&lt;/code&gt; will now open the Github repo linked to your PWD.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-change-the-command&quot;&gt;How to Change the Command&lt;/h2&gt;
+
+&lt;p&gt;If you want to use a different command you can simply change the name of the function:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# from&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;gh&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# to&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;preferredname&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;adjusting-this-for-multiple-github-accounts&quot;&gt;Adjusting this for Multiple Github Accounts&lt;/h2&gt;
+
+&lt;p&gt;If you are using multiple Github accounts on the same machine, then the above script needs some small tweaking:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# ~/.personal-scripts.sh&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;gh&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;remote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;git config &lt;span class=&quot;nt&quot;&gt;--local&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--get&lt;/span&gt; remote.origin.url&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;remote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;remote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;%.git&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$remote&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;then
+     &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Not a git repository or no remote.origin.url set&quot;&lt;/span&gt;
+     &lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;1&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+
+  &lt;span class=&quot;c&quot;&gt;# get the user email associated with the current repo&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;git config &lt;span class=&quot;nt&quot;&gt;--local&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--get&lt;/span&gt; user.email&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+
+  &lt;span class=&quot;c&quot;&gt;# use a conditional to construct the correct Github url&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$email&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;other@user.com&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;# get the second account's Github host from ~/.ssh/config&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# for example, if the other account's Github host is `github.com-other`&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;remote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;/git\@github\.com-other\&lt;/span&gt;:/https://github.com/&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;# for the default host&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;remote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;/git\@github\.com\&lt;/span&gt;:/https://github.com/&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+
+  &lt;span class=&quot;c&quot;&gt;# open the url&lt;/span&gt;
+  open &lt;span class=&quot;nv&quot;&gt;$url&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Tue, 16 Jun 2015 08:00:00 -0400</pubDate>
+        <link>http://gbanis.com/blog/open-github-repo-page-terminal</link>
+        <guid isPermaLink="true">http://gbanis.com/blog/open-github-repo-page-terminal</guid>
+        
+        <category>Github</category>
+        
+        <category>terminal</category>
+        
+        <category>bash</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Software Engineering Workflow with Git and Trello</title>
+        <description>&lt;p&gt;&lt;img src=&quot;/assets/software-engineering-workflow.gif&quot; alt=&quot;Software Engineering Workflow with Git and Trello (gif)&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;If you are reading this post, you are probably looking for a &lt;em&gt;comprehensive&lt;/em&gt; and &lt;em&gt;easy to follow&lt;/em&gt; workflow.&lt;/p&gt;
+
+&lt;p&gt;So, I decided to share the workflow that I use for my side-projects and for this blog! It helps me stay focused, continue being productive, and track my progress.&lt;/p&gt;
+
+&lt;p&gt;It is a variation of the popular &lt;a href=&quot;https://en.wikipedia.org/wiki/Kanban_(development)#Kanban_board_example&quot;&gt;Kanban workflow&lt;/a&gt;, an Agile and Lean workflow which many teams and individuals use successfully.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;If you are so inclined, you can also read more about &lt;a href=&quot;https://github.com/agilelion/Open-Kanban&quot;&gt;Open Kanban&lt;/a&gt;, an open-source flavor of the Kanban methodology.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;slides&quot;&gt;Slides&lt;/h2&gt;
+
+&lt;p&gt;If you just want the summary, take a quick peak through the slides.&lt;/p&gt;
+
+&lt;div class=&quot;iframe-container&quot;&gt;
+  &lt;iframe src=&quot;/blog/slides-software-engineering-workflow/#/&quot; width=&quot;576&quot; height=&quot;420&quot; scrolling=&quot;no&quot; frameborder=&quot;0&quot; webkitallowfullscreen=&quot;&quot; mozallowfullscreen=&quot;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;tools-of-the-trade&quot;&gt;Tools of the Trade&lt;/h2&gt;
+
+&lt;p&gt;The tools we’ll be using are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://trello.com&quot;&gt;Trello&lt;/a&gt; to add new stories or bugs and manage our project&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt; to version our code&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com&quot;&gt;Github&lt;/a&gt; to save our project&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;I am intentionally skipping any mention of deployment tools. There are many great options and of course they all depend on your stack. Feel free to check out &lt;a href=&quot;http://codeship.io.s3.amazonaws.com/ebooks/Codeship_Efficiency_in_Development_Workflows.pdf&quot;&gt;Codeship’s ebook&lt;/a&gt; — It’s a great read.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;trello-lists&quot;&gt;Trello Lists&lt;/h2&gt;
+
+&lt;p&gt;Here are the lists I like to use for my Trello boards:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Backlog&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Next Up&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;In Development&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;In Code Review&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;To Release&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Live&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Abandoned&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Feel free to copy this &lt;a href=&quot;https://trello.com/b/aKD2qNE3&quot;&gt;sample board&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-workflow&quot;&gt;The Workflow&lt;/h2&gt;
+
+&lt;p&gt;Let’s dive into the details of the workflow and how to use each list.&lt;/p&gt;
+
+&lt;h3 id=&quot;1-backlog&quot;&gt;1. Backlog&lt;/h3&gt;
+
+&lt;p&gt;When you decide to add new features or improved existing ones, you’ll be creating new cards and adding them to the &lt;code class=&quot;highlighter-rouge&quot;&gt;Backlog&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;Backlog&lt;/code&gt; is also the right place to add bugs that you discover or your customers report.&lt;/p&gt;
+
+&lt;p&gt;It usually helps to generally arrange the &lt;code class=&quot;highlighter-rouge&quot;&gt;Backlog&lt;/code&gt; cards by order of importance. This way you will have at least a rough idea of what you want to start working next.&lt;/p&gt;
+
+&lt;p&gt;Once a day, sift through the &lt;code class=&quot;highlighter-rouge&quot;&gt;Backlog&lt;/code&gt; and pick the stories you want to work on next and add them to &lt;code class=&quot;highlighter-rouge&quot;&gt;Next Up&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;2-next-up&quot;&gt;2. Next Up&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Next Up&lt;/code&gt; contains all the stories that you want to implement next. You want to have about 2-3 (but not more than 5) stories per team member in this list.&lt;/p&gt;
+
+&lt;p&gt;This is separate from the &lt;code class=&quot;highlighter-rouge&quot;&gt;Backlog&lt;/code&gt; because you want to be able to quickly glance on what should be developed.&lt;/p&gt;
+
+&lt;p&gt;It will help you avoid decision paralysis and quickly start working on the next thing that needs to be developed.&lt;/p&gt;
+
+&lt;p&gt;You should move stories from the &lt;code class=&quot;highlighter-rouge&quot;&gt;Backlog&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;Next Up&lt;/code&gt; once a day or once every few days to keep your queue full and not waste time deciding what to work on next.&lt;/p&gt;
+
+&lt;h3 id=&quot;3-in-development&quot;&gt;3. In Development&lt;/h3&gt;
+
+&lt;p&gt;So far in the workflow we mostly used Trello. Now it’s time to start working on our codebase:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Move a card from &lt;code class=&quot;highlighter-rouge&quot;&gt;Next Up&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;In Development&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Create a new branch on your repo with the name of the story
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git checkout -b &amp;lt;branch-name&amp;gt;&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Work on the story&lt;/li&gt;
+  &lt;li&gt;If you have a test suite, run your tests&lt;/li&gt;
+  &lt;li&gt;When you are done with your story move it to &lt;code class=&quot;highlighter-rouge&quot;&gt;Code Review&lt;/code&gt; and issue a &lt;code class=&quot;highlighter-rouge&quot;&gt;pull request&lt;/code&gt; on Github&lt;/li&gt;
+  &lt;li&gt;Inform your team&lt;/li&gt;
+  &lt;li&gt;Pick up the next story from &lt;code class=&quot;highlighter-rouge&quot;&gt;Next Up&lt;/code&gt; and repeat&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Important!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Make sure you merge &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; whenever an other branch gets merged into &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git checkout master
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git pull
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git checkout &amp;lt;your-branch&amp;gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git merge master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you have merge conflicts:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// Open the files with conflicts
+// Coordinate with your team members to resolve the conflicts
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git add &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git commit
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;4-in-code-review&quot;&gt;4. In Code Review&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;If you are skeptical about the &lt;code class=&quot;highlighter-rouge&quot;&gt;Code Review&lt;/code&gt; process, watch &lt;a href=&quot;https://www.youtube.com/watch?v=PJjmw9TRB7s&quot;&gt;this talk from RailsConf&lt;/a&gt;. I am a big supporter of code reviewing because: 1) it is a great way to learn from others, 2) it helps your team be more aware of your codebase, and of course 3) it results in an overall healthier codebase.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If you are working with a team have one of your team members review the open pull request on Github.&lt;/p&gt;
+
+&lt;p&gt;If you are flying solo, do the CR yourself but be very religious about the process. Try to look at your code as if someone else has written it.&lt;/p&gt;
+
+&lt;p&gt;Once that’s done, merge your pull request into &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;. If you keep your branch fresh with the latest &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; you shouldn’t have any merge conflicts. But even if you do, just go ahead and resolve them.&lt;/p&gt;
+
+&lt;p&gt;Finally, delete the branch and move the story’s card to &lt;code class=&quot;highlighter-rouge&quot;&gt;To Release&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;5-to-release&quot;&gt;5. To Release&lt;/h3&gt;
+
+&lt;p&gt;You made it so far! That’s awesome!&lt;/p&gt;
+
+&lt;p&gt;Now, it’s time to start the relase process and get your story out to the world.&lt;/p&gt;
+
+&lt;p&gt;Depending on the situation you may want to:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Put &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; on a staging box and give it a spin&lt;/li&gt;
+  &lt;li&gt;Deploy to production&lt;/li&gt;
+  &lt;li&gt;Run your build suite and deploy to production&lt;/li&gt;
+  &lt;li&gt;Run your continuous delivery suite and deploy to production&lt;/li&gt;
+  &lt;li&gt;Wait for other complementary stories to release them all together&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;6-live&quot;&gt;6. Live&lt;/h3&gt;
+
+&lt;p&gt;Congratulations! Time your give yourself a quick pat in the back.&lt;/p&gt;
+
+&lt;p&gt;But don’t celebrate for too long — another story awaits in &lt;code class=&quot;highlighter-rouge&quot;&gt;Next Up&lt;/code&gt; :-)&lt;/p&gt;
+
+&lt;h3 id=&quot;7-abandoned&quot;&gt;7. Abandoned&lt;/h3&gt;
+
+&lt;p&gt;Not every story in the &lt;code class=&quot;highlighter-rouge&quot;&gt;Backlog&lt;/code&gt; will get released. Maybe you filed a duplicate story. Or maybe you decided not to implement a feature. The &lt;code class=&quot;highlighter-rouge&quot;&gt;Abandoned&lt;/code&gt; list is to collect all those dormant stories so you can keep them filed instead of just deleting them.&lt;/p&gt;
+
+&lt;h2 id=&quot;final-thoughts&quot;&gt;Final Thoughts&lt;/h2&gt;
+
+&lt;p&gt;I’ve been using this workflow (or a similar one) in most of the teams I’ve worked on and it seems to be working pretty well for me.&lt;/p&gt;
+
+&lt;p&gt;Have you used it yourself? Do you have any feedback? Or maybe you have a better one to recommend?&lt;/p&gt;
+
+&lt;p&gt;Feel free to leave a &lt;a href=&quot;#comments&quot;&gt;comment&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 13 Jun 2015 08:00:00 -0400</pubDate>
+        <link>http://gbanis.com/blog/software-engineering-workflow-git-and-trello</link>
+        <guid isPermaLink="true">http://gbanis.com/blog/software-engineering-workflow-git-and-trello</guid>
+        
+        <category>git</category>
+        
+        <category>trello</category>
+        
+        <category>workflow</category>
+        
+        <category>software engineering</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Flux without Flux: Using Flux Architecture in Plain React</title>
+        <description>&lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
+
+&lt;p&gt;You can replicate the Flux architecture using plain React, building applications and reusable components that are easy to reason about, maintain, and extend.&lt;/p&gt;
+
+&lt;p&gt;Just get &lt;a href=&quot;https://facebook.github.io/flux/img/flux-simple-f8-diagram-with-client-action-1300w.png&quot;&gt;Flux’s architecture chart&lt;/a&gt; and replace:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;action&lt;/code&gt; with &lt;code class=&quot;highlighter-rouge&quot;&gt;event&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dispatcher&lt;/code&gt; with a &lt;code class=&quot;highlighter-rouge&quot;&gt;callback&lt;/code&gt; in your parent (controller) component that you pass down to every child component&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;stores&lt;/code&gt; with &lt;code class=&quot;highlighter-rouge&quot;&gt;state&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;views&lt;/code&gt; are the same old React &lt;code class=&quot;highlighter-rouge&quot;&gt;views&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;intro&quot;&gt;Intro&lt;/h2&gt;
+
+&lt;p&gt;If you are into ReactJS you probably wondered whether or not you should use Flux.&lt;/p&gt;
+
+&lt;p&gt;In this post I’ll share with you a design pattern that implements a very similar Flux architecture, but using just plain React.&lt;/p&gt;
+
+&lt;p&gt;I have tested this “Flux without Flux” in many different settings, including reusable components, with great success and I’d love it if you gave it a try and let me know what you think.&lt;/p&gt;
+
+&lt;h2 id=&quot;to-flux-or-not-to-flux&quot;&gt;To Flux or not to Flux?&lt;/h2&gt;
+
+&lt;p&gt;This is a very common dilemma among engineers that use React — and rightfully so.&lt;/p&gt;
+
+&lt;p&gt;You want to keep your code better organized so that it is easier to reason about and allow the rest of your team to quickly understand how your application is structured.&lt;/p&gt;
+
+&lt;p&gt;On the other hand, you looked at the &lt;a href=&quot;https://facebook.github.io/flux/docs/overview.html&quot;&gt;online Flux documentation&lt;/a&gt;, maybe tried to walk through some of the &lt;a href=&quot;https://github.com/facebook/flux/tree/master/examples&quot;&gt;Flux examples&lt;/a&gt;, and started having second thoughts:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;It looks more complicated than just using React&lt;/li&gt;
+  &lt;li&gt;Will my team be able to pick it up quickly?&lt;/li&gt;
+  &lt;li&gt;Which &lt;a href=&quot;https://reactjsnews.com/the-state-of-flux/&quot;&gt;Flux flavor&lt;/a&gt; should I pick?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Sound familiar?&lt;/p&gt;
+
+&lt;p&gt;Well, don’t despair!&lt;/p&gt;
+
+&lt;p&gt;The “Flux without Flux” pattern that I’m about to share will give you many of the benefits of Flux architecture while using vanilla React.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Disclaimer: I have not used Flux extensively so I can’t speak about how this pattern compares with it or in which cases you might need to use the actual Flux architecture over the “Flux without Flux” patter that I am suggesting. Please use your own judgment. This might not be the perfect solution to all your problems.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;a-quick-flux-recap&quot;&gt;A Quick Flux Recap&lt;/h2&gt;
+
+&lt;p&gt;If you visited Facebook’s &lt;a href=&quot;https://facebook.github.io/flux/docs/overview.html#structure-and-data-flow&quot;&gt;Flux documentation&lt;/a&gt; you probably came across this chart:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://facebook.github.io/flux/img/flux-simple-f8-diagram-with-client-action-1300w.png&quot; alt=&quot;Flux data flow&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The basic premise of the Flux architecture is:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;An &lt;code class=&quot;highlighter-rouge&quot;&gt;action&lt;/code&gt; is triggered which creates a &lt;code class=&quot;highlighter-rouge&quot;&gt;payload&lt;/code&gt; and hands it to the &lt;code class=&quot;highlighter-rouge&quot;&gt;dispatcher&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;dispatcher&lt;/code&gt; delegates the &lt;code class=&quot;highlighter-rouge&quot;&gt;payload&lt;/code&gt; to all the &lt;code class=&quot;highlighter-rouge&quot;&gt;stores&lt;/code&gt; registered with it&lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;stores&lt;/code&gt; update themselves and emit a change event&lt;/li&gt;
+  &lt;li&gt;The React &lt;code class=&quot;highlighter-rouge&quot;&gt;views&lt;/code&gt; listen to the change events and update themselves based on the new data from the stores&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;the-flux-without-flux-pattern&quot;&gt;The Flux without Flux Pattern&lt;/h2&gt;
+
+&lt;p&gt;In the FWF pattern, the Flux architecture is adapted to use React elements:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Event =&amp;gt; onAction =&amp;gt; State =&amp;gt; View&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A user interacts with your application and triggers an &lt;code class=&quot;highlighter-rouge&quot;&gt;event&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;The event handler creates a &lt;code class=&quot;highlighter-rouge&quot;&gt;payload&lt;/code&gt; and hands it to the parent component’s &lt;code class=&quot;highlighter-rouge&quot;&gt;onAction&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;onAction&lt;/code&gt; calls the appropriate method that updates the &lt;code class=&quot;highlighter-rouge&quot;&gt;state&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;React automatically updates all components passing new &lt;code class=&quot;highlighter-rouge&quot;&gt;props&lt;/code&gt; to them&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Not 100% sure how to piece this together?&lt;/p&gt;
+
+&lt;p&gt;In the parent component create a callback method (I like to call it &lt;code class=&quot;highlighter-rouge&quot;&gt;onAction&lt;/code&gt;) and pass it down to all your child components via &lt;code class=&quot;highlighter-rouge&quot;&gt;props&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;When an event gets triggered, call the appropriate child component’s event handler. In it, create a &lt;code class=&quot;highlighter-rouge&quot;&gt;payload&lt;/code&gt; object with an &lt;code class=&quot;highlighter-rouge&quot;&gt;action&lt;/code&gt; and a &lt;code class=&quot;highlighter-rouge&quot;&gt;value&lt;/code&gt;. Then, call the parent’s &lt;code class=&quot;highlighter-rouge&quot;&gt;onAction&lt;/code&gt;, that is passed down via &lt;code class=&quot;highlighter-rouge&quot;&gt;props&lt;/code&gt;, giving it the &lt;code class=&quot;highlighter-rouge&quot;&gt;payload&lt;/code&gt; you created.&lt;/p&gt;
+
+&lt;p&gt;Finally, in the parent component use a &lt;code class=&quot;highlighter-rouge&quot;&gt;switch&lt;/code&gt; that reads the &lt;code class=&quot;highlighter-rouge&quot;&gt;payload.action&lt;/code&gt; and delegates it to the appropriate method that knows how to update the &lt;code class=&quot;highlighter-rouge&quot;&gt;state&lt;/code&gt; with the &lt;code class=&quot;highlighter-rouge&quot;&gt;payload.value&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;React takes care of the rest automatically.&lt;/p&gt;
+
+&lt;h2 id=&quot;a-simple-flux-without-flux-example&quot;&gt;A Simple “Flux without Flux” Example&lt;/h2&gt;
+
+&lt;p&gt;Here’s an example of the “Flux without Flux” pattern:&lt;/p&gt;
+
+&lt;iframe width=&quot;100%&quot; height=&quot;400&quot; src=&quot;//jsfiddle.net/gbanis/zve3xngL/3/embedded/js,html,result/&quot; allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;In this example I’ve created a simple application allows us to create and list &lt;code class=&quot;highlighter-rouge&quot;&gt;comments&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s walk through this example:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Clicking the &lt;code class=&quot;highlighter-rouge&quot;&gt;submit&lt;/code&gt; button in &lt;code class=&quot;highlighter-rouge&quot;&gt;NewComment&lt;/code&gt; uses &lt;code class=&quot;highlighter-rouge&quot;&gt;this.props.onAction&lt;/code&gt; to dispatch an action with &lt;code class=&quot;highlighter-rouge&quot;&gt;payload&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;payload = {
+  action: &quot;SUBMIT_NEW_COMMENT&quot;
+  comment: {
+    comment: this.state.comment,
+    author: this.state.author
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;onAction&lt;/code&gt; grabs the &lt;code class=&quot;highlighter-rouge&quot;&gt;payload&lt;/code&gt;, runs it through the &lt;code class=&quot;highlighter-rouge&quot;&gt;switch&lt;/code&gt; and calls &lt;code class=&quot;highlighter-rouge&quot;&gt;_onSubmitNewComment&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;_onSubmitNewComment&lt;/code&gt; updates the state of the parent component, &lt;code class=&quot;highlighter-rouge&quot;&gt;CommentApp&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CommentApp&lt;/code&gt; passes the new &lt;code class=&quot;highlighter-rouge&quot;&gt;comments&lt;/code&gt; from its &lt;code class=&quot;highlighter-rouge&quot;&gt;state&lt;/code&gt; down to &lt;code class=&quot;highlighter-rouge&quot;&gt;CommentList&lt;/code&gt; via &lt;code class=&quot;highlighter-rouge&quot;&gt;props&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;CommentList&lt;/code&gt; updates, rendering the new list of &lt;code class=&quot;highlighter-rouge&quot;&gt;comments&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;final-thoughts&quot;&gt;Final Thoughts&lt;/h2&gt;
+
+&lt;p&gt;I’ve started using the “Flux without Flux” pattern recently and so far it feels very nice and effortless. Things are where my team and I expect them to be and it’s quite easy to navigate around the codebase.&lt;/p&gt;
+
+&lt;p&gt;I also find it easy to reason about events and their consequences. Plus, I can just use the React I know and love!&lt;/p&gt;
+
+&lt;p&gt;That being said, this is a fairly new pattern and React is not that old either. So please take my suggestions with a grain of salt and if you decide to give this a try, I’d love to hear about your experience!&lt;/p&gt;
+</description>
+        <pubDate>Mon, 25 May 2015 08:00:00 -0400</pubDate>
+        <link>http://gbanis.com/blog/flux-without-flux-using-flux-architecture-plain-react</link>
+        <guid isPermaLink="true">http://gbanis.com/blog/flux-without-flux-using-flux-architecture-plain-react</guid>
+        
+        <category>ReactJS</category>
+        
+        <category>Flux</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>How to Troubleshoot Nginx Error 414: URI Too Large</title>
+        <description>&lt;p&gt;While large AJAX requests could be considered a smell, sometimes it might be easier to simply configure nginx so that it handles larger requests than simply slicing the request to and sending a batch of smaller ones.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-does-this-error-occur&quot;&gt;Why Does This Error Occur?&lt;/h2&gt;
+
+&lt;p&gt;As I was developing on my local dev environment, everything seemed to work fine. But then when I deployed my code on an Amazon EC2 instance, Nginx started complaining sending 414 “URI Too Large” errors.&lt;/p&gt;
+
+&lt;p&gt;The most probable explanation is that the local web server that I was using (Thin/Webrick/Unicorn) by default accepts larger AJAX requests. On the other hand, Nginx usually defaults to 4kb or 8kb max.&lt;/p&gt;
+
+&lt;h2 id=&quot;should-i-change-nginxs-configuration&quot;&gt;Should I Change Nginx’s Configuration?&lt;/h2&gt;
+
+&lt;p&gt;Ideally, you would want to trim your requests, or split them into a batch and send them via AJAX concurrently, rather than sending one giant request.&lt;/p&gt;
+
+&lt;p&gt;However, this might not be feasible sometimes. Maybe a 3rd party JavaScript library sends the request. Or the request looses context if it gets split.&lt;/p&gt;
+
+&lt;p&gt;For those occasions, bumping up the request cap might be the only option.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-increase-nginxs-cap-for-header-size&quot;&gt;How to Increase Nginx’s Cap for Header Size?&lt;/h2&gt;
+
+&lt;p&gt;First, locate &lt;code class=&quot;highlighter-rouge&quot;&gt;nginx.conf&lt;/code&gt;. It’s usually found at &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/nginx/nginx.conf&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Then, add the following header in the &lt;code class=&quot;highlighter-rouge&quot;&gt;server&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;https&lt;/code&gt; part of the file:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;large_client_header_buffers 4 16k
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Note:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;You may want to further increase the allowed header size from 16k.&lt;/li&gt;
+  &lt;li&gt;This header might already exist. If it does, just edit it.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Once you are done, make sure you save the configuration file and restart nginx.&lt;/p&gt;
+
+&lt;p&gt;Some ways to restart nginx:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;service nginx restart&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nginx -s stop&lt;/code&gt; then &lt;code class=&quot;highlighter-rouge&quot;&gt;nginx&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/sbin/nginx -c /etc/nginx/nginx.conf&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Hopefully you should be all set!&lt;/p&gt;
+
+&lt;p&gt;But in case you are still having trouble, &lt;a href=&quot;#comments&quot;&gt;let me know in the comments&lt;/a&gt; and I’d love to help you with troubleshooting.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 22 Mar 2015 08:00:00 -0400</pubDate>
+        <link>http://gbanis.com/blog/howto-troubleshoot-nginx-error-uri-too-large</link>
+        <guid isPermaLink="true">http://gbanis.com/blog/howto-troubleshoot-nginx-error-uri-too-large</guid>
+        
+        <category>nginx</category>
+        
+        <category>ajax</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>How To Use Multiple Github Accounts On A Single Computer</title>
+        <description>&lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
+
+&lt;p&gt;This post will show you how to set up your computer to use multiple Github accounts on a single computer.&lt;/p&gt;
+
+&lt;h2 id=&quot;getting-started&quot;&gt;Getting Started&lt;/h2&gt;
+
+&lt;p&gt;I am assuming you already have a Github account setup properly on your machine. For the sake of this demo let’s call it &lt;code class=&quot;highlighter-rouge&quot;&gt;default-acc&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;set-up-an-ssh-key&quot;&gt;Set up an SSH Key&lt;/h2&gt;
+
+&lt;p&gt;First we’ll need to create and register a new SSH key.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cd ~/.ssh
+$ ssh-keygen -t rsa -C &quot;your-key-name&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I like to name my keys in such way so I don’t forget what they are about. For this demo let’s just name it &lt;code class=&quot;highlighter-rouge&quot;&gt;second-github-account&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Next, add the key to SSH:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ssh-add ~/.ssh/second-github-account
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;associate-the-new-key-with-github&quot;&gt;Associate the New Key with Github&lt;/h2&gt;
+
+&lt;p&gt;Now you need to associate this key with Github:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Go to &lt;a href=&quot;https://github.com/settings/ssh&quot;&gt;Github &amp;gt; Settings &amp;gt; SSH keys&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Add SSH key&lt;/li&gt;
+  &lt;li&gt;Give it a title. I’d name it &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;computer name&amp;gt; &amp;lt;key name&amp;gt;&lt;/code&gt;. For example &lt;code class=&quot;highlighter-rouge&quot;&gt;Macbook Air second-github-account&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Paste in the &lt;strong&gt;public&lt;/strong&gt; key. You can find this by typing &lt;code class=&quot;highlighter-rouge&quot;&gt;cat ~/.ssh/second-github-account.pub&lt;/code&gt; in your terminal. (Don’t forget the &lt;code class=&quot;highlighter-rouge&quot;&gt;.pub&lt;/code&gt; extension.)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;create-a-config-file&quot;&gt;Create a Config File&lt;/h2&gt;
+
+&lt;p&gt;In order for Git to be able to distinguish which key it should use for each repo, you’ll need to setup a &lt;code class=&quot;highlighter-rouge&quot;&gt;config&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ touch ~/.ssh/config
+$ subl ~/.ssh/config
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In there you’ll need to add your current/default account and the new one we just created:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#Default GitHub Account
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/first-github-account
+
+#Second GitHub Account
+Host github-second
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/second-github-account
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;using-the-new-github-account-with-git&quot;&gt;Using the New Github Account with Git&lt;/h2&gt;
+
+&lt;p&gt;Now, you’ll use git pretty much the same way you are used to. The only thing that is different is the way you refer to your remote repo.&lt;/p&gt;
+
+&lt;p&gt;For example, if the SSH link Github provides you is &lt;code class=&quot;highlighter-rouge&quot;&gt;git@github.com:user-name/repo-name.git&lt;/code&gt; you’ll need to change it to &lt;code class=&quot;highlighter-rouge&quot;&gt;git@github-second:user-name/repo-name.git&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Where did &lt;code class=&quot;highlighter-rouge&quot;&gt;git@github-second&lt;/code&gt; come from?&lt;/p&gt;
+
+&lt;p&gt;Check out the config file we just created. Under the second account we have &lt;code class=&quot;highlighter-rouge&quot;&gt;Host github-second&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;User git&lt;/code&gt;. That’s it!&lt;/p&gt;
+
+&lt;p&gt;Now, when you clone a repo or add a remote, the only thing you need to remember is to change &lt;code class=&quot;highlighter-rouge&quot;&gt;github.com&lt;/code&gt; to your &lt;code class=&quot;highlighter-rouge&quot;&gt;github-second&lt;/code&gt; host.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ git@github.com:&amp;lt;username&amp;gt;/&amp;lt;repo&amp;gt;.git&lt;/code&gt; becomes &lt;code class=&quot;highlighter-rouge&quot;&gt;$ git clone git@github-second:&amp;lt;username&amp;gt;/&amp;lt;repo&amp;gt;.git&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ git remote add origin git@github.com:&amp;lt;username&amp;gt;/&amp;lt;repo&amp;gt;.git&lt;/code&gt; becomes &lt;code class=&quot;highlighter-rouge&quot;&gt;$ git remote add origin git@github-second:&amp;lt;username&amp;gt;/&amp;lt;repo&amp;gt;.git&lt;/code&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 21 Feb 2015 07:00:00 -0500</pubDate>
+        <link>http://gbanis.com/blog/howto-use-multiple-github-accounts-single-computer</link>
+        <guid isPermaLink="true">http://gbanis.com/blog/howto-use-multiple-github-accounts-single-computer</guid>
+        
+        <category>github</category>
+        
+        <category>git</category>
+        
+        <category>ssh</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>How To Create a New Boilerplate Jekyll Post Using Rake</title>
+        <description>&lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
+
+&lt;p&gt;In this post to learn how to create a new Jekyll post with boilerplate &lt;code class=&quot;highlighter-rouge&quot;&gt;yaml&lt;/code&gt; info using Rake. That way you won’t have to navigate around, create files, and copy-paste info from older posts.&lt;/p&gt;
+
+&lt;h2 id=&quot;building-the-rakefile-task&quot;&gt;Building the Rakefile Task&lt;/h2&gt;
+
+&lt;p&gt;If want, you can jump directly to the &lt;a href=&quot;#the-complete-rakefile-task&quot;&gt;complete rakefile task&lt;/a&gt; or keep reading to learn how I put it together and how it works.&lt;/p&gt;
+
+&lt;h3 id=&quot;specifications&quot;&gt;Specifications&lt;/h3&gt;
+
+&lt;p&gt;Here are the things I’d like rake task to do:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Ask for a Blog post title&lt;/li&gt;
+  &lt;li&gt;Create the file name and post slug&lt;/li&gt;
+  &lt;li&gt;Write some boilerplate &lt;code class=&quot;highlighter-rouge&quot;&gt;yaml&lt;/code&gt; information in the file&lt;/li&gt;
+  &lt;li&gt;Save it in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_drafts&lt;/code&gt; folder&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Let’s start simple and create a namespace with a description and an empty task:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:post&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Creates a new blog post in _drafts folder&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:new&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# ...&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, let’s add a prompt and save the user input:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:post&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Creates a new blog post in _drafts folder&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:new&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;STDOUT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Enter post name:&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;gt; &quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;post_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;STDIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;chomp&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# ...&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Excellent! Now, we need to do some string manipulation to create the post for the slug.&lt;/p&gt;
+
+&lt;p&gt;We will need to:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;downcase all words,&lt;/li&gt;
+  &lt;li&gt;remove all escape words (because Google doesn’t index them),&lt;/li&gt;
+  &lt;li&gt;remove spaces and special characters,&lt;/li&gt;
+  &lt;li&gt;and separate all words with dashes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;STOPWORDS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%w(i a about an are as at be by com for from how in is it of on or that the this to was what when where who will with the www)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:post&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Creates a new blog post in _drafts folder&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:new&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;STDOUT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Enter post name:&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;gt; &quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;post_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;STDIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;chomp&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;post_slug&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;post_name&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/[^a-zA-Z ]/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/ +/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# remove special characters and double spaces&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;downcase&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;keep_if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;STOPWORDS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# keep if the word is not a stop word&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# ...&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next, we need to get the &lt;code class=&quot;highlighter-rouge&quot;&gt;current_date&lt;/code&gt; which we will use in the filename and in the &lt;code class=&quot;highlighter-rouge&quot;&gt;yaml&lt;/code&gt; info.&lt;/p&gt;
+
+&lt;p&gt;With the &lt;code class=&quot;highlighter-rouge&quot;&gt;current_date&lt;/code&gt; and the &lt;code class=&quot;highlighter-rouge&quot;&gt;post_slug&lt;/code&gt;, setting the &lt;code class=&quot;highlighter-rouge&quot;&gt;file_path&lt;/code&gt; is pretty simple.&lt;/p&gt;
+
+&lt;p&gt;Note: When I create new posts I put them in my &lt;code class=&quot;highlighter-rouge&quot;&gt;_drafts&lt;/code&gt; folder. If you want to put them directly in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; folder, just set:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;file_path = &quot;_posts/#{current_date}-#{post_slug}.md&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;STOPWORDS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%w(i a about an are as at be by com for from how in is it of on or that the this to was what when where who will with the www)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:post&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Creates a new blog post in _drafts folder&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:new&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;STDOUT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Enter post name:&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;gt; &quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;post_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;STDIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;chomp&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;post_slug&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;post_name&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/how to/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;howto&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/[^a-zA-Z ]/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/ +/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;downcase&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;keep_if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;STOPWORDS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;current_date&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;getutc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;strftime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;%Y-%m-%d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# YYYY-MM-DD&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;file_path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;_drafts/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current_date&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;post_slug&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.md&quot;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# ...&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Alright, almost there! The last thing to do is to actually create the file with a &lt;code class=&quot;highlighter-rouge&quot;&gt;system&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;echo&lt;/code&gt; command. Check it out below, along with the complete task.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-complete-rakefile-task&quot;&gt;The Complete Rakefile Task&lt;/h2&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;STOPWORDS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%w(i a about an are as at be by com for from how in is it of on or that the this to was what when where who will with the www)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:post&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Creates a new blog post in _drafts folder&quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:new&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;STDOUT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Enter post name:&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;gt; &quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;post_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;STDIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;chomp&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;post_slug&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;post_name&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/how to/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;howto&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/[^a-zA-Z ]/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;gsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/ +/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;downcase&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;keep_if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;STOPWORDS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;current_date&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;getutc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;strftime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;%Y-%m-%d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;file_path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;_drafts/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current_date&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;post_slug&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.md&quot;&lt;/span&gt;
+  &lt;span class=&quot;sb&quot;&gt;`echo '---
+layout:     post
+title:      &quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;post_name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;&quot;
+date:       &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current_date&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt; 12:00:00
+tags:
+  - tag
+  - tag
+author:     George Banis
+---' &amp;gt; &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file_path&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;bonus&quot;&gt;Bonus&lt;/h2&gt;
+
+&lt;p&gt;Here’s another quick tip to make your life even easier!&lt;/p&gt;
+
+&lt;p&gt;Just create an alias to your Jekyll folder to get there even faster.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;First, open &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.bash_profile&lt;/code&gt; with your favorite editor&lt;/li&gt;
+  &lt;li&gt;Add an alias to your Jekyll folder &lt;code class=&quot;highlighter-rouge&quot;&gt;alias cdjk='cd ~/path-to-jekyll-folder'&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Just enter &lt;code class=&quot;highlighter-rouge&quot;&gt;cdjk&lt;/code&gt; in your terminal to &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt; in your Jekyll folder.&lt;/p&gt;
+
+&lt;p&gt;Now you have no excuses not to blog! :-)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Have a question? &lt;a href=&quot;#comments&quot;&gt;Leave a comment!&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 19 Jan 2015 07:00:00 -0500</pubDate>
+        <link>http://gbanis.com/blog/howto-create-new-boilerplate-jekyll-post-using-rake</link>
+        <guid isPermaLink="true">http://gbanis.com/blog/howto-create-new-boilerplate-jekyll-post-using-rake</guid>
+        
+        <category>jekyll</category>
+        
+        <category>rake</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>How I Built Ruby SEO Tools in a Week</title>
+        <description>&lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
+
+&lt;p&gt;Not long ago I decided to combine everything I know about SEO with my web development skills into a web application. This is how &lt;a href=&quot;http://rubyseotools.com&quot;&gt;Ruby SEO Tools&lt;/a&gt; was born, a tool that helps marketers analyze how well their blog posts are optimized for SEO.&lt;/p&gt;
+
+&lt;p&gt;The first version of Ruby SEO Tools was built in just a handful of days—it could very well be the product of a hackathon. And since many friends of mine want to participate in a hackathon and aren’t sure &lt;em&gt;how&lt;/em&gt; to get organized, I decided I’d document my process in hopes that you could get an idea or two.&lt;/p&gt;
+
+&lt;p&gt;Keep reading to find out how I built a fully functional web application in under 50 hours.&lt;/p&gt;
+
+&lt;h2 id=&quot;first-lets-set-a-few-things-straight&quot;&gt;First, Lets Set a Few Things Straight…&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Don’t expect to produce an enterprise-level, feature-rich application in just a few hours.&lt;/li&gt;
+  &lt;li&gt;Brainstorm as many features as you wish. Then select a single feature and implement it.&lt;/li&gt;
+  &lt;li&gt;You should have a plan of action. If you don’t you’ll run in circles.&lt;/li&gt;
+  &lt;li&gt;If you have a team, it helps if you all have different skills.&lt;/li&gt;
+  &lt;li&gt;Try something out of the ordinary and have fun.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Now that we got these things out of the way, here’s how I built the first version of &lt;a href=&quot;rubyseotools.com&quot;&gt;rubyseotools.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;before-starting-to-code&quot;&gt;Before Starting to Code&lt;/h2&gt;
+
+&lt;h3 id=&quot;inspiration-for-the-project&quot;&gt;Inspiration for the Project&lt;/h3&gt;
+
+&lt;p&gt;Coming up with an idea for your project is obviously the first thing on the list.&lt;/p&gt;
+
+&lt;p&gt;I had a few things in mind that I wanted to build but obviously when you are about to invest a good amout of time on something you want to make it count.&lt;/p&gt;
+
+&lt;p&gt;It obviously helps if:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;You have experience in the topic&lt;/li&gt;
+  &lt;li&gt;You know that there is pain involved and that you could aleviate some of that pain&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Once I finalized the core idea, I started taking notes. I brainstormed, talked with friends and colleagues and put all my ideas (good and bad) in a document. This is not the time to decide whether they are good or bad. My main goal was to collect a good amount of ideas.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-project-plan&quot;&gt;The “Project Plan”&lt;/h3&gt;
+
+&lt;p&gt;I created a Google Doc and put in it all the following:&lt;/p&gt;
+
+&lt;h4 id=&quot;about&quot;&gt;About&lt;/h4&gt;
+
+&lt;p&gt;Here’s where I listed the name, logo, url and description of the project.&lt;/p&gt;
+
+&lt;h4 id=&quot;features&quot;&gt;Features&lt;/h4&gt;
+
+&lt;p&gt;In this section I went wild, literally. I wrote down as many ideas and features as I could.&lt;/p&gt;
+
+&lt;p&gt;Quickly I started realizing what my starting point should be:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A tool where a marketer can provide the URL of his/her blog post and get a report with SEO recommendations.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;user-experience&quot;&gt;User Experience&lt;/h4&gt;
+
+&lt;p&gt;With the core idea in place, I started creating some basic user stories as well as the user flow from when a visitor arrives to the home page until they are done with the tool.&lt;/p&gt;
+
+&lt;h4 id=&quot;seo-performance-metrics&quot;&gt;SEO Performance Metrics&lt;/h4&gt;
+
+&lt;p&gt;By now, the idea has taken some shape and form. At this moment, I had to decide which metrics I should implement in this first version.&lt;/p&gt;
+
+&lt;p&gt;I had two main criteria:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;How much value is the end-user going to get from the metric&lt;/li&gt;
+  &lt;li&gt;How easy is it to implement this metric&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;With this in mind I gathered a set of about 15 metrics that I knew I could develop within a few quick hours. This was great starting point that I could then use to build on.&lt;/p&gt;
+
+&lt;h4 id=&quot;database-architecture&quot;&gt;Database Architecture&lt;/h4&gt;
+
+&lt;p&gt;Nothing out of the ordinary here. With all the information in hand I built my models. It’s always a good idea to start simple and add complexity if necessary.&lt;/p&gt;
+
+&lt;h4 id=&quot;technologies-i-want-to-use&quot;&gt;Technologies I Want to Use&lt;/h4&gt;
+
+&lt;p&gt;Pretty obvious but I made a list of all the things I wanted to implement:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Rails API for my back-end&lt;/li&gt;
+  &lt;li&gt;Angular.js for my front-end&lt;/li&gt;
+  &lt;li&gt;RSpec to test my business logic and models&lt;/li&gt;
+  &lt;li&gt;Code Climate for code review and test coverage&lt;/li&gt;
+  &lt;li&gt;Gemnasium to check dependencies&lt;/li&gt;
+  &lt;li&gt;Codeship for continuous integration&lt;/li&gt;
+  &lt;li&gt;Heroku to host Rails&lt;/li&gt;
+  &lt;li&gt;Github to host HTML/CSS/JS&lt;/li&gt;
+  &lt;li&gt;Nokogiri for HTML parsing&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;developing-the-application&quot;&gt;Developing the Application&lt;/h2&gt;
+
+&lt;h3 id=&quot;service-oriented-architecture&quot;&gt;Service Oriented Architecture&lt;/h3&gt;
+
+&lt;p&gt;Naturally, the first thing once you have everything ready is setting up your environment and initializing your project.&lt;/p&gt;
+
+&lt;p&gt;For this project I used the following architecture:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/ruby-seo-tools-architecture.svg&quot; alt=&quot;Ruby SEO Tools - Architecture&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I knew I would have my front and back ends separate so two different local repos were in order.&lt;/p&gt;
+
+&lt;p&gt;These repos were then linked to their respective Github repos.&lt;/p&gt;
+
+&lt;p&gt;Back-end, I linked my GH repository to Gemnasium to make sure my gem dependencies were in good order. I set up Codeship to pull from Github, run the tests and push to Heroku if everything passed. And of course set up New Relic to monitor my Heroku server.&lt;/p&gt;
+
+&lt;p&gt;Front-end, I didn’t write tests so I simply tested locally and pushed to a gh-pages branch when everything looked good. I added Google Analytics to keep an eye on traffic and got a custom domain which I routed through Cloudflare DNS. And of course, Angular chats with Rails through a RESTful API using AJAX.&lt;/p&gt;
+
+&lt;h3 id=&quot;setting-up-environments&quot;&gt;Setting Up Environments&lt;/h3&gt;
+
+&lt;p&gt;You can start seeing how everything is coming along nicely.&lt;/p&gt;
+
+&lt;p&gt;Two folders, one for each end. In one, I initialized a Rails API application running Postgres. In the other, I created the boilerplate files and folders, including Angular and Bootstrap through Bower.&lt;/p&gt;
+
+&lt;h3 id=&quot;defining-end-points-for-my-api&quot;&gt;Defining End-Points for my API&lt;/h3&gt;
+
+&lt;p&gt;For each report that the end-user would like to generate I wanted to make a single call to the Rails server and get a pass response with the report data or a fail response.&lt;/p&gt;
+
+&lt;p&gt;Simple enough, right? That’s my goal, given the limited amount of time.&lt;/p&gt;
+
+&lt;h3 id=&quot;developing-the-back-end&quot;&gt;Developing the Back-end&lt;/h3&gt;
+
+&lt;p&gt;Here’s where the real coding begins.&lt;/p&gt;
+
+&lt;p&gt;Even though I had limited amount of time in hand I still wanted to do TDD so I decided to test my business logic and selectively test my controller and models.&lt;/p&gt;
+
+&lt;p&gt;So, as you can imagine I started writing tests for my SEO analysis and built a module that hosts all the methods that do that.&lt;/p&gt;
+
+&lt;p&gt;Once my server was consistently delivering a RESTful endpoint, I pushed it on Github and soon had it live on Heroku via Codeship.&lt;/p&gt;
+
+&lt;p&gt;Finally, I set a custom subdomain for my API server, api.rubyseotools.com, and now I was ready to start building my front-end.&lt;/p&gt;
+
+&lt;h3 id=&quot;workin-on-the-front-end&quot;&gt;Workin on the Front-end&lt;/h3&gt;
+
+&lt;p&gt;I wanted to try Angular Material but after spending a few hours on it, I realized that it would be more trouble than I thought.&lt;/p&gt;
+
+&lt;p&gt;So, I went with a combination of Angular.js and Boostrap which I was familiar with and could start developing immediately.&lt;/p&gt;
+
+&lt;p&gt;Nothing too special here, I put together a factory to communicate with my API and then designed a simple front-end UI that displays the information.&lt;/p&gt;
+
+&lt;h2 id=&quot;getting-past-v001&quot;&gt;Getting Past v0.0.1&lt;/h2&gt;
+
+&lt;p&gt;With a first functioning version of my application, I started implementing more SEO metrics using the following process:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Pick the metric&lt;/li&gt;
+  &lt;li&gt;Write the tests&lt;/li&gt;
+  &lt;li&gt;Write the code that makes the tests pass&lt;/li&gt;
+  &lt;li&gt;Expose it to the API&lt;/li&gt;
+  &lt;li&gt;Pull it and display it on the front end&lt;/li&gt;
+  &lt;li&gt;Make sure everything looks good and tests pass&lt;/li&gt;
+  &lt;li&gt;Push to production&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;polishing-and-marketing&quot;&gt;Polishing and Marketing&lt;/h2&gt;
+
+&lt;p&gt;I consider this step is very important so I gave myself enough time to polish the front-end and make it look great everywhere (yep, I did do some cross-browser and cross-device testing).&lt;/p&gt;
+
+&lt;p&gt;I also took some time writing a few nice words and making gifs so that visitors have a delightful experience when they visit for the first time and know what to do when they get there.&lt;/p&gt;
+
+&lt;h2 id=&quot;final-thoughts&quot;&gt;Final Thoughts&lt;/h2&gt;
+
+&lt;p&gt;As you see, planning is equally as important as developing in my eyes. If you have a roadmap you’ll have a &lt;em&gt;significantly&lt;/em&gt; easier time building your project.&lt;/p&gt;
+
+&lt;p&gt;Also, many think that TDD takes up a lot of time but I really feel like it’s much faster than manually testing everything all the time when you can simply run the tests.&lt;/p&gt;
+
+&lt;p&gt;Finally, hackathons and small projects like this one are lots of fun. So no matter what happens, make sure you enjoy yourself!&lt;/p&gt;
+
+&lt;p&gt;I hope this helps and would love to hear what your thoughts are in the commends below.&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 08 Jan 2015 07:00:00 -0500</pubDate>
+        <link>http://gbanis.com/blog/how-I-built-ruby-seo-tools-in-a-week</link>
+        <guid isPermaLink="true">http://gbanis.com/blog/how-I-built-ruby-seo-tools-in-a-week</guid>
+        
+        <category>hackathon</category>
+        
+        <category>planning</category>
+        
+        <category>project management</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Building Ruby SEO Tools, A Tool To Analyze the SEO Stats of your Blog Posts</title>
+        <description>&lt;p&gt;&lt;a class=&quot;twitter-timeline&quot; href=&quot;https://twitter.com/search?q=%23rubyseotools%20%23sneakpeak&quot; data-widget-id=&quot;544284288066535424&quot;&gt;Click here to view all the #RubySeoTools #SneakPeak updates on Twitter&lt;/a&gt;&lt;/p&gt;
+
+&lt;script&gt;
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+&quot;://platform.twitter.com/widgets.js&quot;;fjs.parentNode.insertBefore(js,fjs);}}(document,&quot;script&quot;,&quot;twitter-wjs&quot;);&lt;/script&gt;
+
+</description>
+        <pubDate>Sun, 14 Dec 2014 07:00:00 -0500</pubDate>
+        <link>http://gbanis.com/blog/ruby-seo-tools-sneak-peak</link>
+        <guid isPermaLink="true">http://gbanis.com/blog/ruby-seo-tools-sneak-peak</guid>
+        
+        <category>ruby seo tools</category>
+        
+        <category>seo</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>How to Add Google Authorship to Jekyll</title>
+        <description>&lt;h2 id=&quot;tldr&quot;&gt;TL;DR&lt;/h2&gt;
+
+&lt;p&gt;Adding Google Authorship to Jekyll will help you with SEO and will also connect your name with your blog post on search results.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-process-for-adding-google-authorship-to-jekyll&quot;&gt;The Process for Adding Google Authorship to Jekyll&lt;/h2&gt;
+
+&lt;p&gt;Before you implement the markup on your Jekyll site, make sure:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;You have a Google+ page&lt;/li&gt;
+  &lt;li&gt;You have linked your website to your page&lt;/li&gt;
+  &lt;li&gt;You have added your website to Google Webmaster Tools&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Once you are done with that you’ll need to:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Create an &lt;code class=&quot;highlighter-rouge&quot;&gt;authors.yml&lt;/code&gt; file to store your author data&lt;/li&gt;
+  &lt;li&gt;Set the author in your post&lt;/li&gt;
+  &lt;li&gt;Update your &lt;code class=&quot;highlighter-rouge&quot;&gt;post_meta.html&lt;/code&gt; partial with the Google+ markup&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;1-create-an-authorsyml-file&quot;&gt;1. Create an authors.yml file&lt;/h3&gt;
+
+&lt;p&gt;We’ll need this file to store the name and Google+ url of the author. This is a great way to have it set up, especially if you plan on having multiple authors.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Create a &lt;code class=&quot;highlighter-rouge&quot;&gt;_data&lt;/code&gt; folder in your root directory (if you don’t already have one).&lt;/li&gt;
+  &lt;li&gt;Create an &lt;code class=&quot;highlighter-rouge&quot;&gt;authors.yml&lt;/code&gt; file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_data&lt;/code&gt; folder.&lt;/li&gt;
+  &lt;li&gt;Enter your author info in that file.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For example, my information is the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# _data/authors.yml&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;George Banis&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;google_plus&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;https://plus.google.com/+GeorgeBanis&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;2-set-the-author-in-your-post&quot;&gt;2. Set the author in your post&lt;/h3&gt;
+
+&lt;p&gt;You’ll need to add the author name in your post so that you’ll be able to find the right author for your post with liquid.&lt;/p&gt;
+
+&lt;p&gt;Here’s an example of what this post’s markdown looks like:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---
+layout:     post
+title:      &quot;How to Add Google Authorship to Jelyll&quot;
+date:       2014-12-09 12:00:00
+tags:
+  - google authorship
+  - jekyll
+  - seo
+author:     George Banis  # &amp;lt;--- this is what you need to add
+---
+
+## TL;DR
+
+Adding Google Authorship to Jekyll will help you with SEO and will also connect your name with your blog post on search results.
+[...]
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3-update-your-post_metahtml-partial&quot;&gt;3. Update your post_meta.html partial&lt;/h3&gt;
+
+&lt;p&gt;This is where all the magic happens. Once you’ve set up your data correctly, you should be able to access the author information by matching the &lt;code class=&quot;highlighter-rouge&quot;&gt;page.author&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;post.author&lt;/code&gt; with the &lt;code class=&quot;highlighter-rouge&quot;&gt;site.data.authors&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here’s a simple version of the code you’ll need to do that:&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+{% for author in site.data.authors %}
+  {% if author.name == page.author %} &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- or post.author --&amp;gt;&lt;/span&gt;
+    by &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;itemscope&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;itemtype=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://schema.org/Person&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{{author.google_plus}}&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;publisher&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;itemprop=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        {{author.name}}
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
+  {% endif %}
+{% endfor %}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And in case you are wondering, here’s what my custom &lt;code class=&quot;highlighter-rouge&quot;&gt;post_meta.html&lt;/code&gt; looks like:&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;&amp;lt;!-- _includes/post_meta.html --&amp;gt;&lt;/span&gt;
+
+{% if page.author %}
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!-- Post meta tags for individual post page --&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;post-meta&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;post-date&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;{{ page.date | date: &quot;%b %-d, %Y&quot; }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;{% for author in site.data.authors %}{% if author.name == page.author %} • by &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;post-author&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;itemscope&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;itemtype=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://schema.org/Person&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{{author.google_plus}}&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;publisher&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;itemprop=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;{{author.name}}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;{% endif %}{% endfor %}
+  {% if page.meta %} • {{ page.meta }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;{% endif %}
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;post-tags&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;i&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;fa fa-tags&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/i&amp;gt;&lt;/span&gt; {% for tag in page.tags %} &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/tags/{{ tag }}&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;View posts tagged with &amp;amp;quot;{{ tag }}&amp;amp;quot;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;u&amp;gt;&lt;/span&gt;{{ tag }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/u&amp;gt;&amp;lt;/a&amp;gt;&lt;/span&gt;{% if forloop.last != true %}, {% endif %} {% endfor %}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+{% endif %}
+
+{% if post.author %}
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!-- Post meta tags for index page --&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;post-meta&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;post-date&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;{{ post.date | date: &quot;%b %-d, %Y&quot; }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;{% for author in site.data.authors %}{% if author.name == post.author %} • by &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;post-author&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;itemscope&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;itemtype=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://schema.org/Person&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{{author.google_plus}}&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;publisher&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;itemprop=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;{{author.name}}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;{% endif %}{% endfor %}
+{{post.meta}}
+  {% if post.meta %} • {{ post.meta }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;{% endif %}
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;post-tags&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;i&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;fa fa-tags&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/i&amp;gt;&lt;/span&gt; {% for tag in post.tags %} &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/tags/{{ tag }}&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;View posts tagged with &amp;amp;quot;{{ tag }}&amp;amp;quot;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;{{ tag }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;{% if forloop.last != true %}, {% endif %}{% endfor %}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+{% endif %}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Hope this helps!&lt;/p&gt;
+
+&lt;p&gt;Let me know what you think with a quick comment.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 09 Dec 2014 07:00:00 -0500</pubDate>
+        <link>http://gbanis.com/blog/how-to-add-google-authorship-jekyll</link>
+        <guid isPermaLink="true">http://gbanis.com/blog/how-to-add-google-authorship-jekyll</guid>
+        
+        <category>google authorship</category>
+        
+        <category>jekyll</category>
+        
+        <category>seo</category>
+        
+        
+      </item>
+    
+  </channel>
+</rss>

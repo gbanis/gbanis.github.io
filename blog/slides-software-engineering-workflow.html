@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>[Slides] Software Engineering Workflow</title>
+<meta name="description" content="Slide deck on software engineering workflow for small teams and individuals. A methodology to stay focused, be productive, and track your progress.">
+
+<meta name="keywords" content="slides, software engineering, workflow, software engineer, machine learning, artificial intelligence, spark, java, kafka, hbase, hadoop, big data, etl">
+
+<link rel="canonical" href="http://gbanis.com/blog/slides-software-engineering-workflow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="http://gbanis.com/favicon.ico" />
+
+    <!-- Google Fonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400|Anonymous+Pro|Bree+Serif' rel='stylesheet' type='text/css'>
+
+<!-- Fontawesome -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<!-- Google Analytics -->
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-19365634-4', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+
+    <link rel="stylesheet" href="/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="/reveal.js/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="/reveal.js/lib/css/zenburn.css">
+
+    <link rel="stylesheet" href="/css/revealjs.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '/reveal.js/css/print/pdf.css' : '/reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-markdown>
+  <script type="text/template">
+    ### Software Engineering Workflow
+
+    BY [GEORGE BANIS](http://gbanis.com)
+  </script>
+</section>
+<section data-markdown>
+  <script type="text/template">
+    ## Tools
+
+    - Git
+    - Github
+    - Trello
+  </script>
+</section>
+<section data-markdown>
+  <script type="text/template">
+    ## Trello Lists
+
+    1. Backlog
+    1. Next Up
+    1. In Development
+    1. In Code Review
+    1. To Release
+    1. Live
+    1. Abandoned
+  </script>
+</section>
+<section data-markdown>
+  <script type="text/template">
+    ## 1. Backlog
+
+    - Add new stories and bugs
+    - Arrange by order of importance
+  </script>
+</section>
+<section data-markdown>
+  <script type="text/template">
+    ## 2. Next Up
+
+    - Next stories to be  implemented
+    - Move stories from Backlog to this list
+    - Keep 2-3 stories PTM *(per team member)*
+    - Update it once a day
+  </script>
+</section>
+<section data-markdown>
+  <script type="text/template">
+    ## 3. In Development
+
+    - Only 1 card PTM in Development
+    - Create a new branch
+    - Work on the branch
+    - Keep the branch fresh (merge `master`)
+    - Run the tests
+    - Move to Code Review
+  </script>
+</section>
+<section data-markdown>
+  <script type="text/template">
+    ## 4. In Code Review
+
+    - Open the PR in Github
+    - Look at the diffs
+    - Pull the branch and test it locally
+    - Be very thorough
+    - If all is good, comment "LGTM"
+  </script>
+</section>
+<section data-markdown>
+  <script type="text/template">
+    ## 5. To Release
+
+    - Merge to master and:
+    - Run your build suite
+    - Run your continuous integration suite
+    - Deploy to staging
+    - Deploy to production
+    - Wait for complementary stories
+  </script>
+</section>
+<section data-markdown>
+  <script type="text/template">
+    ## 6. Live
+
+    - Congrats! You made it!
+    - Now go grab the next story from Next Up
+  </script>
+</section>
+<section data-markdown>
+  <script type="text/template">
+    ## 7. Abandoned
+
+    - Duplicate stories
+    - Features that won't be implemented
+    - Erroneous entries
+  </script>
+</section>
+<section data-markdown>
+  <script type="text/template">
+    ### Get the Trello Board Template
+
+    [https://trello.com/b/aKD2qNE3](https://trello.com/b/aKD2qNE3)
+  </script>
+</section>
+
+
+
+      </div>
+
+    </div>
+
+    <div id="slide-footer">
+  <a href="/" class="slide-nav-home">
+    Home
+  </a>
+  <span class="slide-credits">| 2015 &copy; George Banis - All contents are <a href="http://creativecommons.org/licenses/by-nc/3.0/us/" target="_blank">Creative Commons</a> licensed.</p>
+</div>
+
+
+
+    <script src="/reveal.js/lib/js/head.min.js"></script>
+    <script src="/reveal.js/js/reveal.js"></script>
+
+    <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '/reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '/reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: '/reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+
+  </body>
+</html>
